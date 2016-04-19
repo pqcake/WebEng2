@@ -22,15 +22,14 @@ public class LoginPageFilter implements Filter {
 
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse,   FilterChain filterChain) throws IOException, ServletException
     {
+        LOGGER.debug("doFilter");
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        LOGGER.debug("user of session: "+request.getSession().getAttribute("user"));
-
         //if(request.getUserPrincipal() != null){ //If user is already authenticated
         if(request.getSession().getAttribute("user") != null){ //If user is already authenticated
-
-            response.sendRedirect("/overview.jsp");// or, forward using RequestDispatcher
+            LOGGER.debug("session has user "+request.getSession().getAttribute("user")+" redirecting to overview");
+            response.sendRedirect("/views/overview.jsp");// or, forward using RequestDispatcher
         } else{
             filterChain.doFilter(servletRequest, servletResponse);
         }

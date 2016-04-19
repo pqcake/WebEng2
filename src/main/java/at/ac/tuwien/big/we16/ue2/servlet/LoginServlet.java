@@ -105,6 +105,7 @@ public class LoginServlet extends HttpServlet {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/overview.jsp");
         dispatcher.forward(request, response);
+        //response.sendRedirect("views/overview.jsp");
 
         /*
         HttpSession session = request.getSession(true);
