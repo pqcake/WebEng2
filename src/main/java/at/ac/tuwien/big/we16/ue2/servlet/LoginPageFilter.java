@@ -27,8 +27,8 @@ public class LoginPageFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         //if(request.getUserPrincipal() != null){ //If user is already authenticated
-        if(request.getSession().getAttribute("user") != null){ //If user is already authenticated
-            LOGGER.debug("session has user "+request.getSession().getAttribute("user")+" redirecting to overview");
+        if(request.getSession(false) != null){ //If user is already authenticated
+            LOGGER.debug("session has user "+request.getSession(false).getAttribute("user")+" redirecting to overview");
             response.sendRedirect("/views/overview.jsp");// or, forward using RequestDispatcher
         } else{
             filterChain.doFilter(servletRequest, servletResponse);

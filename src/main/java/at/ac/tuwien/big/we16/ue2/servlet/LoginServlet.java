@@ -50,6 +50,17 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        if(request.getSession(false)!=null){
+            LOGGER.debug("Session found, forward to overview!");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/overview.jsp");
+            dispatcher.forward(request, response);
+        }else{
+            LOGGER.debug("No session found, forward to login!");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/login.html");
+            dispatcher.forward(request, response);
+        }
+
         /*String action = request.getParameter("action");
         if(action==null) {
             return;
