@@ -1,5 +1,7 @@
 package at.ac.tuwien.big.we16.ue2.model;
 
+import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,10 @@ public class User {
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public String getFormattedBalance(){
+        return CurrencyFormatter.format(balance);
     }
 
     @Override

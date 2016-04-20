@@ -37,7 +37,7 @@
                 <dd class="user-name"><%=user.getUsername()%></dd>
                 <dt>Kontostand:</dt>
                 <dd>
-                    <span class="balance"><%=user.getBalance()%> €</span>
+                    <span class="balance"><%=user.getFormattedBalance()%> €</span>
                 </dd>
                 <dt>Laufend:</dt>
                 <dd>
@@ -74,7 +74,7 @@
                             <dd class="product-name">${item.name}</dd>
                             <dt>Preis</dt>
                             <dd class="product-price">
-                                ${item.current_bid} €
+                                ${item.getFormattedCurrentBid()} €
                             </dd>
                             <dt>Verbleibende Zeit</dt>
                             <dd data-end-time="2016,03,14,14,30,23,288" data-end-text="abgelaufen"

@@ -1,6 +1,14 @@
 /*
     Helper functions for the first exercise of the Web Engineering course
 */
+/*$(document).ready(function () {
+    $(".product-price").each(function () {
+        console.log($(this).text());
+        $(this).html(formatCurrency(parseFloat($(this).text())));
+        //format bigdecimal output, now replaced with getFormattedCurrentBid()
+    })
+})*/
+
 
 /* 
     checks if native form validation is available.
