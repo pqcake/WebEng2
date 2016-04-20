@@ -6,7 +6,7 @@ package at.ac.tuwien.big.we16.ue2.servlet;
  */
 
 import at.ac.tuwien.big.we16.ue2.model.User;
-import at.ac.tuwien.big.we16.ue2.model.User.Interest;
+//import at.ac.tuwien.big.we16.ue2.model.User.Interest;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
         HttpSession session=request.getSession(true);
 
         User user=new User();
-        user.setFirstname(request.getParameter("email"));
+        user.setUsername(request.getParameter("email"));
         user.setPassword(request.getParameter("password"));
         userpool.registerUser(user);
 

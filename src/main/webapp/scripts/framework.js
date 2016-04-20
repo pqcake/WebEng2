@@ -108,6 +108,6 @@ function formatCurrency(x) {
 var socket = new WebSocket("ws://localhost:8080/socket");
 socket.onmessage = function (event) {
 
-    /***  write your code here ***/
+    /***  TODO write your code here ***/
 
 };

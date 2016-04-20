@@ -1,101 +1,45 @@
 package at.ac.tuwien.big.we16.ue2.productdata;
 
+import at.ac.tuwien.big.we16.ue2.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class JSONDataLoader {
 
-    private static Product products;
+    private static List<Product> products=new LinkedList<>();
 
-    public static Music[] getMusic() {
-        if (products == null)
-            loadProducts();
-        return products.getMusic();
-    }
-
-    public static Movie[] getFilms() {
-        if (products == null)
-            loadProducts();
-        return products.getMovies();
-    }
-
-    public static Book[] getBooks() {
+    /*public static Book[] getBooks() {
         if (products == null)
             loadProducts();
         return products.getBooks();
-    }
+    }*/
 
     private static void loadProducts() {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("products.json");
         Reader reader = new InputStreamReader(is);
-        Gson gson = new GsonBuilder().create();
-        products = gson.fromJson(reader, Product.class);
+        Gson gson = new GsonBuilder().setDateFormat("yyyy,MM,dd,HH,mm,ss,SSS").create();
+        products = gson.fromJson(reader, new TypeToken<List<Product>>(){}.getType());
+        //TODO fill out products.json and test this
     }
+
 
     public class Product {
-        private Music[] music;
-        private Book[] books;
-        private Movie[] movies;
 
-        public Music[] getMusic() {
-            return music;
-        }
-
-        public void setMusic(Music[] music) {
-            this.music = music;
-        }
-
-        public Book[] getBooks() {
-            return books;
-        }
-
-        public void setBooks(Book[] books) {
-            this.books = books;
-        }
-
-        public Movie[] getMovies() {
-            return movies;
-        }
-
-        public void setMovies(Movie[] movies) {
-            this.movies = movies;
-        }
-    }
-
-    public class Music {
-
-        private String album_name;
-        private String artist;
-        private String year;
+        private long id;
+        private String name;
+        private BigDecimal current_bid;
+        private User highest_bidder;
         private String img;
-
-        public String getAlbum_name() {
-            return album_name;
-        }
-
-        public void setAlbum_name(String album_name) {
-            this.album_name = album_name;
-        }
-
-        public String getArtist() {
-            return artist;
-        }
-
-        public void setArtist(String artist) {
-            this.artist = artist;
-        }
-
-        public String getYear() {
-            return year;
-        }
-
-        public void setYear(String year) {
-            this.year = year;
-        }
+        private Date endtime;
 
         public String getImg() {
             return img;
@@ -104,86 +48,37 @@ public class JSONDataLoader {
         public void setImg(String img) {
             this.img = img;
         }
-    }
 
-    public class Book {
-
-        private String title;
-        private String author;
-        private String year;
-        private String img;
-
-        public String getTitle() {
-            return title;
+        public String getName() {
+            return name;
         }
 
-        public void setTitle(String title) {
-            this.title = title;
+        public void setName(String name) {
+            this.name = name;
         }
 
-        public String getAuthor() {
-            return author;
+        public BigDecimal getCurrent_bid() {
+            return current_bid;
         }
 
-        public void setAuthor(String author) {
-            this.author = author;
+        public void setCurrent_bid(BigDecimal current_bid) {
+            this.current_bid = current_bid;
         }
 
-        public String getYear() {
-            return year;
+        public User getHighest_bidder() {
+            return highest_bidder;
         }
 
-        public void setYear(String year) {
-            this.year = year;
+        public void setHighest_bidder(User highest_bidder) {
+            this.highest_bidder = highest_bidder;
         }
 
-        public String getImg() {
-            return img;
+        public Date getEndtime() {
+            return endtime;
         }
 
-        public void setImg(String img) {
-            this.img = img;
+        public void setEndtime(Date endtime) {
+            this.endtime = endtime;
         }
     }
-
-    public class Movie {
-
-        private String title;
-        private String director;
-        private String year;
-        private String img;
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public String getDirector() {
-            return director;
-        }
-
-        public void setDirector(String director) {
-            this.director = director;
-        }
-
-        public String getYear() {
-            return year;
-        }
-
-        public void setYear(String year) {
-            this.year = year;
-        }
-
-        public String getImg() {
-            return img;
-        }
-
-        public void setImg(String img) {
-            this.img = img;
-        }
-    }
-
 }

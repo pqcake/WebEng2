@@ -1,71 +1,52 @@
 {
-    "music": [
+    "products": [
         {
-            "album_name": "Californication",
-            "artist": "Red Hot Chili Peppers",
-            "year": "1999",
+            "id": 1,
+            "name": "Californication",
             "img" : "red_hot_chili_peppers.png",
-            "dbpedia": "http://dbpedia.org/page/Californication_(album)"
+            "current_bid" : "123.123"
         },
         {
-            "album_name": "Forty Licks",
-            "artist": "The Rolling Stones",
-            "year": "2002",
+            "id": 2,
+            "name": "Forty Licks",
             "img" : "rolling_stones.png",
-            "dbpedia": "http://dbpedia.org/page/Forty_Licks"
+            "current_bid" : "10.99",
+            "endtime": "yyyy,MM,dd,HH,mm,ss,SSS"
         },
         {
-            "album_name": "Reload",
-            "artist": "Metallica",
-            "year": "1997",
-            "img" : "metallica.png",
-            "dbpedia": "http://dbpedia.org/page/Reload_(Metallica_album)"
-        }
-    ],
-    "books": [
+            "id": 3,
+            "name": "Reload",
+            "img" : "metallica.png"
+        },
         {
-            "title": "Pride and Prejudice",
-            "author": "Jane Austen",
-            "year": "1813",
+            "id": 4,
+            "name": "The Godfather",
+            "img" : "the_godfather.png"
+        },
+        {
+            "id": 5,
+            "name": "The Martian",
+            "img" : "the_martian.png"
+        },
+        {
+            "id": 6,
+            "name": "The Wizard of Oz",
+            "img" : "the_wizard_of_oz.png"
+        },
+        {
+            "id": 7,
+            "name": "Pride and Prejudice",
             "img" : "pride_and_prejudice.png",
-            "dbpedia": "http://dbpedia.org/page/Pride_and_Prejudice"
         },
         {
-            "title": "1984",
-            "author": "George Orwell",
-            "year": "1949",
-            "img" : "1984.png",
-            "dbpedia": "http://dbpedia.org/page/Nineteen_Eighty-Four"
+            "id": 8,
+            "name": "1984",
+            "img" : "1984.png"
         },
         {
-            "title": "The Great Gatsby",
-            "author": "F. Scott Fitzgerald",
-            "year": "1925",
-            "img" : "the_great_gatsby.png",
-            "dbpedia": "http://dbpedia.org/page/The_Great_Gatsby"
-        }
-    ],
-    "movies": [
-        {
-            "title": "The Godfather",
-            "director": "Francis Ford Coppola",
-            "year": "1972",
-            "img" : "the_godfather.png",
-            "dbpedia": "http://dbpedia.org/page/The_Godfather"
-        },
-        {
-            "title": "The Martian",
-            "director": "Ridley Scott",
-            "year": "2015",
-            "img" : "the_martian.png",
-            "dbpedia": "http://dbpedia.org/page/The_Martian_(film)"
-        },
-        {
-            "title": "The Wizard of Oz",
-            "director": "Victor Fleming",
-            "year": "1939",
-            "img" : "the_wizard_of_oz.png",
-            "dbpedia": "http://dbpedia.org/page/The_Wizard_of_Oz_(1939_film)"
+            "id": 9,
+            "name": "The Great Gatsby",
+            "img" : "the_great_gatsby.png"
         }
     ]
 }

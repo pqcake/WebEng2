@@ -33,10 +33,10 @@
             <h2 class="accessibility" id="userinfoheadline">Benutzerdaten</h2>
             <dl class="user-data properties">
                 <dt class="accessibility">Name:</dt>
-                <dd class="user-name"><%=user.getFirstname()%></dd>
+                <dd class="user-name"><%=user.getUsername()%></dd>
                 <dt>Kontostand:</dt>
                 <dd>
-                    <span class="balance">1.500,00 €</span>
+                    <span class="balance"><%=user.getBalance()%> €</span>
                 </dd>
                 <dt>Laufend:</dt>
                 <dd>
