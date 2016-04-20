@@ -66,7 +66,7 @@
         <div class="products">
             <c:forEach var="item" items="${products}">
                 <div class="product-outer" data-product-id="${item.id}">
-                    <a href="" class="product expired "
+                    <a href="" class="product<c:if test="${item.isExpired()}"> expired</c:if>"
                        title="Mehr Informationen zu ${item.name}">
                         <img class="product-image" src="../images/${item.img}" alt=""/>
                         <dl class="product-properties properties">
@@ -77,7 +77,7 @@
                                 ${item.getFormattedCurrentBid()} €
                             </dd>
                             <dt>Verbleibende Zeit</dt>
-                            <dd data-end-time="2016,03,14,14,30,23,288" data-end-text="abgelaufen"
+                            <dd data-end-time="${item.getFormattedEndtime()}" data-end-text="abgelaufen"
                                 class="product-time js-time-left"></dd>
                             <dt>Höchstbietende/r</dt>
                             <dd class="product-highest">${item.highest_bidder}</dd>

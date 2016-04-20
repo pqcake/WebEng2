@@ -5,6 +5,7 @@ import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
@@ -16,6 +17,7 @@ public class Product {
     private User highest_bidder;
     private String img;
     private Date endtime;
+    private SimpleDateFormat dt = new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,SSS");
 
     public String getImg() {
         return img;
@@ -67,6 +69,14 @@ public class Product {
 
     public String getFormattedCurrentBid(){
        return CurrencyFormatter.format(current_bid);
+    }
+
+    public String getFormattedEndtime(){
+        return dt.format(endtime);
+    }
+
+    public boolean isExpired(){
+        return endtime.before(new Date());
     }
 
     @Override
