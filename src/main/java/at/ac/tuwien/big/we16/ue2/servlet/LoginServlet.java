@@ -5,9 +5,10 @@ package at.ac.tuwien.big.we16.ue2.servlet;
  * and open the template in the editor.
  */
 
+import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
-//import at.ac.tuwien.big.we16.ue2.model.User.Interest;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
+import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,8 +37,12 @@ public class LoginServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        super.init();
+        //super.init(); //not necessary for init(), only for init (ServletConfig config)
+        LOGGER.debug("init() called");
         userpool = new UserPool();
+        List<Product> products=JSONDataLoader.getProducts();
+        getServletContext().setAttribute("products",products);
+        LOGGER.debug("products {} loaded and set as attribute",products);
     }
   
     /**
