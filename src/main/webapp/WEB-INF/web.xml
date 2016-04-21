@@ -12,6 +12,11 @@
         <url-pattern>/views/login.html</url-pattern>
     </filter-mapping>-->
     <!-- Add your deployment description here -->
+    <listener>
+        <listener-class>
+            at.ac.tuwien.big.we16.ue2.service.ContextInitiator
+        </listener-class>
+    </listener>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>at.ac.tuwien.big.we16.ue2.servlet.LoginServlet</servlet-class>

@@ -40,9 +40,6 @@ public class LoginServlet extends HttpServlet {
         //super.init(); //not necessary for init(), only for init (ServletConfig config)
         LOGGER.debug("init() called");
         userpool = new UserPool();
-        List<Product> products=JSONDataLoader.getProducts();
-        getServletContext().setAttribute("products",products);
-        LOGGER.debug("products {} loaded and set as attribute",products);
     }
   
     /**

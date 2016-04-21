@@ -1,9 +1,12 @@
 package at.ac.tuwien.big.we16.ue2.model;
 
 import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
+import org.h2.mvstore.ConcurrentArrayList;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class User {
@@ -14,7 +17,11 @@ public class User {
     private List<Product> auctions_running,aouctions_won,auctions_lost;
 
 
-    public User(){        
+    public User(){
+
+        auctions_running= Collections.synchronizedList(new LinkedList<>());
+        aouctions_won= Collections.synchronizedList(new LinkedList<>());
+        auctions_lost= Collections.synchronizedList(new LinkedList<>());
     }
 
     public String getPassword() {
@@ -48,18 +55,18 @@ public class User {
     public BigDecimal getBalance() {return balance;}
 
     public String getFormattedBalance(){
-        return CurrencyFormatter.format(balance);
+        return CurrencyFormatter.format(getBalance());
     }
 
     public void addFunds(BigDecimal amount) {
         synchronized (balance) {
-            balance.add(amount);
+            balance=balance.add(amount);
         }
     }
 
     public void removeFunds(BigDecimal amount) {
         synchronized (balance) {
-            balance.subtract(amount);
+            balance=balance.subtract(amount);
         }
     }
 
