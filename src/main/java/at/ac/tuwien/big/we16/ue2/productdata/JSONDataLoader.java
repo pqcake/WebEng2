@@ -10,19 +10,22 @@ import org.apache.logging.log4j.Logger;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class JSONDataLoader {
 
     private static final Logger LOGGER= LogManager.getLogger(JSONDataLoader.class);
-    private static List<Product> products;
+    //private static List<Product> products;
+    private static Map<Long,Product> productMap;
 
-    public static List<Product> getProducts() {
+    public static Map<Long,Product> getProducts() {
         LOGGER.debug("getProducts() called");
-        if (products == null)
+        if (productMap == null)
             loadProducts();
-        return products;
+        return productMap;
     }
 
     private static void loadProducts() {
@@ -30,7 +33,11 @@ public class JSONDataLoader {
         InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("products.json");
         Reader reader = new InputStreamReader(is);
         Gson gson = new GsonBuilder().setDateFormat("yyyy,MM,dd,HH,mm,ss,SSS").create();
-        products = gson.fromJson(reader, new TypeToken<List<Product>>(){}.getType());
+        List<Product>products = gson.fromJson(reader, new TypeToken<List<Product>>(){}.getType());
+        productMap=new HashMap<>();
+        for(Product p:products){
+            productMap.put(p.getId(),p);
+        }
         LOGGER.debug(products.size()+" products loaded");
     }
 }

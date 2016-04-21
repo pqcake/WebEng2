@@ -8,7 +8,9 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ContextInitiator
         implements ServletContextListener{
@@ -28,9 +30,10 @@ public class ContextInitiator
     public void contextInitialized(ServletContextEvent arg0) {
         context=arg0.getServletContext();
         biddingService=new BiddingService();
-        List<Product> products= JSONDataLoader.getProducts();
-        context.setAttribute("products", products);
-        biddingAI=new BiddingAI(biddingService,products);
+        Map<Long,Product> products= JSONDataLoader.getProducts();
+        List<Product> productList=new ArrayList<>(products.values());
+        context.setAttribute("products", productList);
+        biddingAI=new BiddingAI(biddingService,productList);
         LOGGER.debug("products {} loaded and set as attribute",products);
 
     }

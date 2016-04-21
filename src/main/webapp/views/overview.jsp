@@ -66,8 +66,13 @@
         <div class="products">
             <c:forEach var="item" items="${products}">
                 <div class="product-outer" data-product-id="${item.id}">
-                    <a href="" class="product<c:if test="${item.isExpired()}"> expired</c:if>"
-                       title="Mehr Informationen zu ${item.name}">
+                    <a href="
+                        <c:url value="DetailServlet">
+                            <c:param name="id" value="${item.id}"/>
+                        </c:url>"
+                       class="product<c:if test="${item.isExpired()}"> expired</c:if>"
+                       title="Mehr Informationen zu ${item.name}"
+                    >
                         <img class="product-image" src="../images/${item.img}" alt=""/>
                         <dl class="product-properties properties">
                             <dt>Bezeichnung</dt>
