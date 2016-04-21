@@ -31,10 +31,10 @@
             <h2 class="accessibility" id="userinfoheadline">Benutzerdaten</h2>
             <dl class="user-data properties">
                 <dt class="accessibility">Name:</dt>
-                <dd class="user-name">John Doe</dd>
+                <dd class="user-name">${user.username}</dd>
                 <dt>Kontostand:</dt>
                 <dd>
-                    <span class="balance">1.500,00 €</span>
+                    <span class="balance">${user.getFormattedBalance()}</span>
                 </dd>
                 <dt>Laufend:</dt>
                 <dd>
@@ -62,24 +62,24 @@
         <div class="details-image-container">
             <img class="details-image" src="../images/the_godfather.png" alt="">
         </div>
-        <div data-product-id="ce510a73-408f-489c-87f9-94817d845773" class="details-data">
-            <h2 class="main-headline" id="productheadline">Der Pate (Film)</h2>
+        <div data-product-id="${product.id}" class="details-data">
+            <h2 class="main-headline" id="productheadline">${product.name}</h2>
 
             <div class="auction-expired-text" style="display:none">
                 <p>
                     Diese Auktion ist bereits abgelaufen.
                     Das Produkt wurde um
-                    <span class="highest-bid">149,08 €</span> an
-                    <span class="highest-bidder">Jane Doe</span> verkauft.
+                    <span class="highest-bid">${product.getFormattedCurrentBid()}</span> an
+                    <span class="highest-bidder">${product.highest_bidder.name}</span> verkauft.
                 </p>
             </div>
-            <p class="detail-time">Restzeit: <span data-end-time="2016,03,14,15,05,19,796"
+            <p class="detail-time">Restzeit: <span data-end-time="${product.getFormattedEndtime()}"
                                                    class="detail-rest-time js-time-left"></span>
             </p>
             <form class="bid-form" method="post" action="">
                 <label class="bid-form-field" id="highest-price">
-                    <span class="highest-bid">149,08 €</span>
-                    <span class="highest-bidder">Jane Doe</span>
+                    <span class="highest-bid">${product.getFormattedCurrentBid()}</span>
+                    <span class="highest-bidder">${product.highest_bidder.name}</span>
                 </label>
                 <label class="accessibility" for="new-price"></label>
                 <input type="number" step="0.01" min="0" id="new-price" class="bid-form-field form-input"

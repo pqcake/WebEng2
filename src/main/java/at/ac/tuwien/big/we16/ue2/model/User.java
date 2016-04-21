@@ -1,10 +1,12 @@
 package at.ac.tuwien.big.we16.ue2.model;
 
 import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
-import com.google.gson.Gson;
+import org.h2.mvstore.ConcurrentArrayList;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class User {
@@ -12,10 +14,14 @@ public class User {
     private String username = "";
     private String password = "";
     private BigDecimal balance= new BigDecimal(1500);
-    private int auctions_running,auctions_won,auctions_lost;
+    private List<Product> auctions_running,aouctions_won,auctions_lost;
 
 
-    public User(){        
+    public User(){
+
+        auctions_running= Collections.synchronizedList(new LinkedList<>());
+        aouctions_won= Collections.synchronizedList(new LinkedList<>());
+        auctions_lost= Collections.synchronizedList(new LinkedList<>());
     }
 
     public String getPassword() {
@@ -34,50 +40,38 @@ public class User {
         this.username = username;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
-    }
-
-    public String getFormattedBalance(){
-        return CurrencyFormatter.format(balance);
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
-    }
-
-    public int getAuctions_running() {
+    public List<Product> getAuctions_running() {
         return auctions_running;
     }
 
-    public void setAuctions_running(int auctions_running) {
-        this.auctions_running = auctions_running;
+    public List<Product> getAouctions_won() {
+        return aouctions_won;
     }
 
-    public int getAuctions_won() {
-        return auctions_won;
-    }
-
-    public void setAuctions_won(int auctions_won) {
-        this.auctions_won = auctions_won;
-    }
-
-    public int getAuctions_lost() {
+    public List<Product> getAuctions_lost() {
         return auctions_lost;
     }
 
-    public void setAuctions_lost(int auctions_lost) {
-        this.auctions_lost = auctions_lost;
+    public BigDecimal getBalance() {return balance;}
+
+    public String getFormattedBalance(){
+        return CurrencyFormatter.format(getBalance());
+    }
+
+    public void addFunds(BigDecimal amount) {
+        synchronized (balance) {
+            balance=balance.add(amount);
+        }
+    }
+
+    public void removeFunds(BigDecimal amount) {
+        synchronized (balance) {
+            balance=balance.subtract(amount);
+        }
     }
 
     @Override
     public String toString() {
         return username;
-    }
-
-    public String toJason() {
-        Gson gs = new Gson();
-
-        return gs.toJson(this,User.class);
     }
 }
