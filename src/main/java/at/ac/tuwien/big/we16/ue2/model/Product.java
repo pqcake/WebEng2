@@ -19,6 +19,16 @@ public class Product {
     private Date endtime;
     private SimpleDateFormat dt = new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,SSS");
 
+    private boolean allReadySent = false;
+
+    public boolean isAllReadySent() {
+        return allReadySent;
+    }
+
+    public void setAllReadySent(boolean allReadySent) {
+        this.allReadySent = allReadySent;
+    }
+
     public String getImg() {
         return img;
     }

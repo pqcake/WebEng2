@@ -9,6 +9,8 @@ import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
+import at.ac.tuwien.big.we16.ue2.service.NotifierService;
+import at.ac.tuwien.big.we16.ue2.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.OnClose;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private UserPool userpool;
+    private NotifierService notifieService;
     private static final Logger LOGGER= LogManager.getLogger(LoginServlet.class);
     
     @Override
@@ -42,6 +46,9 @@ public class LoginServlet extends HttpServlet {
         userpool = new UserPool();
         List<Product> products=JSONDataLoader.getProducts();
         getServletContext().setAttribute("products",products);
+        notifieService = ServiceFactory.getNotifierService();
+        notifieService.setUserPool(userpool);
+        notifieService.setProducts(products);
         LOGGER.debug("products {} loaded and set as attribute",products);
     }
   
@@ -177,6 +184,12 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userpage.jsp");
         dispatcher.forward(request, response);
         */
+    }
+
+    @Override
+    public void destroy() {
+        // shutdown the notify service
+        notifieService.stop();
     }
     
     @Override

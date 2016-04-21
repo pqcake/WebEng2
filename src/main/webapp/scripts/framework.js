@@ -115,7 +115,21 @@ function formatCurrency(x) {
 // change the URL.
 var socket = new WebSocket("ws://localhost:8080/socket");
 socket.onmessage = function (event) {
+    //testing stuff
+    console.log("event data: " + event.data);
+    if (event.data) {
+        var res = event.data.split(":");
+        console.log("split: " + res);
+        if (res[0] == "Expired") {
+            for (var i = 1; i < res.length; i++) {
+                console.log(res[i]);
+            }
+        }
+    }
+    else
+    {
 
+    }
     /***  TODO write your code here ***/
 
 };

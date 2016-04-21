@@ -27,6 +27,7 @@ public class BigBidEndpoint {
     @OnOpen
     public void onOpen(Session socketSession, EndpointConfig config) {
         this.notifierService.register(socketSession, (HttpSession) config.getUserProperties().get(HttpSession.class.getName()));
+
     }
 
     /**

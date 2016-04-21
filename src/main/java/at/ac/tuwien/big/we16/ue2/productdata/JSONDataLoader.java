@@ -32,5 +32,6 @@ public class JSONDataLoader {
         Gson gson = new GsonBuilder().setDateFormat("yyyy,MM,dd,HH,mm,ss,SSS").create();
         products = gson.fromJson(reader, new TypeToken<List<Product>>(){}.getType());
         LOGGER.debug(products.size()+" products loaded");
+
     }
 }
