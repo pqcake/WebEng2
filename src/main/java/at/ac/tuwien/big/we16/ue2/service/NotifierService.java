@@ -1,7 +1,10 @@
 package at.ac.tuwien.big.we16.ue2.service;
 
 import at.ac.tuwien.big.we16.ue2.model.Product;
+import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
+import at.ac.tuwien.big.we16.ue2.util.AuctionMessage;
+import at.ac.tuwien.big.we16.ue2.util.Message;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,18 +53,15 @@ public class NotifierService {
                         if (hasExpired) {
                             for (Map.Entry<Session, HttpSession> entry : clients.entrySet()) {
                                 try {
-                                    String expString = "Expired";
-                                    for (Product p : productsExp) {
-                                        expString += ":" + p.getId();
+                                    for(Product p:productsExp)
+                                    {
+                                        //for every product send a message to all clients
+                                        User u = userPool.getUser(entry.getValue().getAttribute("user").toString());
+                                        Message msg = new AuctionMessage(u,p.getId());
+                                        //send with json
+                                        LOGGER.debug("Sending json!");
+                                        entry.getKey().getBasicRemote().sendText(msg.toJson());
                                     }
-                                    if (entry.getValue() != null) {
-                                      // Object o = entry.getValue().getAttribute("user");
-
-                                    }
-                                    //  String s = (String) entry.getValue().getAttribute("user");
-                                    //  expString += ":" + s;
-                                    entry.getKey().getBasicRemote().sendText(expString);
-
                                 } catch (IOException e) {
                                     LOGGER.debug("error: " + e);
                                 }

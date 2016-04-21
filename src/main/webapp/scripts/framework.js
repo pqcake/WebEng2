@@ -118,18 +118,29 @@ socket.onmessage = function (event) {
     //testing stuff
     console.log("event data: " + event.data);
     if (event.data) {
-        var res = event.data.split(":");
-        console.log("split: " + res);
-        if (res[0] == "Expired") {
-            for (var i = 1; i < res.length; i++) {
-                console.log(res[i]);
-            }
+        var msg = JSON.parse(event.data);
+        switch(msg.type)
+        {
+            case "AUCTION_EXPIRED":
+                console.log("product id: "+ msg.productID);
+                console.log("current balance: " + msg.currentBalance);
+                console.log("runningBids: " + msg.runningBids);
+                console.log("wonAuctions: " + msg.wonAuctions);
+                console.log("lostAuctions: " + msg.lostAuctions);
+                //set attribute
+                $("[data-product-id="+ msg.productID + "] > a").toggleClass("expired");
+                break;
+            case "NEW_BID":
+                
+                break;
+            case "OUTBIDDEN":
+                break;
+
         }
     }
     else
     {
 
     }
-    /***  TODO write your code here ***/
 
 };
