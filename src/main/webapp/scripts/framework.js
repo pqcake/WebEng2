@@ -129,6 +129,10 @@ socket.onmessage = function (event) {
                 console.log("lostAuctions: " + msg.lostAuctions);
                 //set attribute
                 $("[data-product-id="+ msg.productID + "] > a").toggleClass("expired");
+                $(".balance").text(msg.currentBalance);
+                $(".running-auctions-count").text(msg.runningBids);
+                $(".won-auctions-count").text(msg.wonAuctions);
+                $(".lost-auctions-count").text(msg.lostAuctions);
                 break;
             case "NEW_BID":
                 

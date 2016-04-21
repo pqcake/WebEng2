@@ -77,6 +77,36 @@ public class NotifierService {
         executor.scheduleAtFixedRate(notifyUsers,0, 1000, TimeUnit.MILLISECONDS);
 
     }
+    public void notifyClients(Message msg)
+    {
+        for (Map.Entry<Session, HttpSession> entry : clients.entrySet()) {
+            try {
+                //send with json
+                LOGGER.debug("Sending json!");
+                entry.getKey().getBasicRemote().sendText(msg.toJson());
+
+            } catch (IOException e) {
+                LOGGER.debug("error: " + e);
+            }
+        }
+    }
+
+    public void notifyClient(User user,Message msg) {
+        for (Map.Entry<Session, HttpSession> entry : clients.entrySet()) {
+            if(entry.getValue().getAttribute("user").equals(user.getUsername())) {
+                //send message to that user
+                try {
+                    //send with json
+                    LOGGER.debug("Sending json!");
+                    entry.getKey().getBasicRemote().sendText(msg.toJson());
+                    return;
+
+                } catch (IOException e) {
+                    LOGGER.debug("error: " + e);
+                }
+            }
+        }
+    }
 
     /**
      * This method is used by the WebSocket endpoint to save a reference to all

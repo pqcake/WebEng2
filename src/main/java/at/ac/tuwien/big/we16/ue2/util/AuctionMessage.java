@@ -21,7 +21,7 @@ public class AuctionMessage extends Message {
         this.currentBalance = u.getBalance();
         this.lostAuctions = u.getAuctions_lost().size();
         this.wonAuctions = u.getAouctions_won().size();
-        this.runningBids = 10;//u.getAuctions_running().size();
+        this.runningBids = u.getAuctions_running().size();
         this.productID = productID;
     }
 

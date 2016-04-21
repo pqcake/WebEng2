@@ -2,10 +2,7 @@ package at.ac.tuwien.big.we16.ue2.service;
 
 import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
-import at.ac.tuwien.big.we16.ue2.util.HighestBidderExcpetion;
-import at.ac.tuwien.big.we16.ue2.util.InsufficientAmountException;
-import at.ac.tuwien.big.we16.ue2.util.InsufficientFundsException;
-import at.ac.tuwien.big.we16.ue2.util.InvalidProductException;
+import at.ac.tuwien.big.we16.ue2.util.*;
 
 import java.math.BigDecimal;
 
@@ -57,7 +54,10 @@ public class BiddingService  implements IBiddingService{
     private void returnFunds(User user,Product product,BigDecimal amount){
         if(user!=null) {
             user.addFunds(amount);
-            //ToDo inform user (call notifierservice)
+            //inform user (call notifierservice)
+            NotifierService notifier = ServiceFactory.getNotifierService();
+            OutbiddenMessage msg = new OutbiddenMessage(user.getBalance());
+            notifier.notifyClient(user,msg);
         }
     }
 

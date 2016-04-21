@@ -9,6 +9,7 @@ import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
+import at.ac.tuwien.big.we16.ue2.service.ServiceFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -174,6 +175,9 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/userpage.jsp");
         dispatcher.forward(request, response);
         */
+    }
+    @Override public void destroy() {
+        ServiceFactory.getNotifierService().stop();
     }
     
     @Override

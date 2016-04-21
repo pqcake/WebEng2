@@ -43,6 +43,7 @@ public class ContextInitiator
 
         notifierService = ServiceFactory.getNotifierService();
         notifierService.setProducts(productList);
+        notifierService.setUserPool(userPool);
         LOGGER.debug("products {} loaded and set as attribute",products);
 
     }
