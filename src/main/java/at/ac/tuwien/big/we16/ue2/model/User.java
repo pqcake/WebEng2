@@ -11,7 +11,7 @@ public class User {
     private String username = "";
     private String password = "";
     private BigDecimal balance= new BigDecimal(1500);
-    private int auctions_running,auctions_won,auctions_lost;
+    private List<Product> auctions_running,aouctions_won,auctions_lost;
 
 
     public User(){        
@@ -33,12 +33,34 @@ public class User {
         this.username = username;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public List<Product> getAuctions_running() {
+        return auctions_running;
     }
+
+    public List<Product> getAouctions_won() {
+        return aouctions_won;
+    }
+
+    public List<Product> getAuctions_lost() {
+        return auctions_lost;
+    }
+
+    public BigDecimal getBalance() {return balance;}
 
     public String getFormattedBalance(){
         return CurrencyFormatter.format(balance);
+    }
+
+    public void addFunds(BigDecimal amount) {
+        synchronized (balance) {
+            balance.add(amount);
+        }
+    }
+
+    public void removeFunds(BigDecimal amount) {
+        synchronized (balance) {
+            balance.subtract(amount);
+        }
     }
 
     @Override
