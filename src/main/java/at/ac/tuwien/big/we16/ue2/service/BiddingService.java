@@ -25,7 +25,7 @@ public class BiddingService  implements IBiddingService{
                     if ((product.getCurrent_bid().compareTo(amount)) == -1) {
                         // amount <= balance (not (amount > balance))
                         if (!(amount.compareTo(user.getBalance()) == 1)) {
-                            returnFunds(product.getHighest_bidder(), product.getCurrent_bid());
+                            returnFunds(product.getHighest_bidder(),product, product.getCurrent_bid());
                             product.setCurrent_bid(amount);
                             product.setHighest_bidder(user);
                             user.removeFunds(amount);
@@ -47,7 +47,7 @@ public class BiddingService  implements IBiddingService{
         }
     }
 
-    private void returnFunds(User user,BigDecimal amount){
+    private void returnFunds(User user,Product product,BigDecimal amount){
         if(user!=null) {
             user.addFunds(amount);
             //ToDo inform user (call notifierservice)
