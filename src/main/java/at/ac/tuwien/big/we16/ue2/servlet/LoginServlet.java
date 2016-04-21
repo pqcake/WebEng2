@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
     public void init() throws ServletException {
         //super.init(); //not necessary for init(), only for init (ServletConfig config)
         LOGGER.debug("init() called");
-        userpool = new UserPool();
+        userpool = (UserPool) getServletContext().getAttribute("userPool");
     }
   
     /**
