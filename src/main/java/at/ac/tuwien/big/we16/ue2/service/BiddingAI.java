@@ -3,10 +3,7 @@ package at.ac.tuwien.big.we16.ue2.service;
 import at.ac.tuwien.big.we16.ue2.model.AIUser;
 import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
-import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
-import at.ac.tuwien.big.we16.ue2.util.HighestBidderExcpetion;
-import at.ac.tuwien.big.we16.ue2.util.InsufficientAmountException;
-import at.ac.tuwien.big.we16.ue2.util.InsufficientFundsException;
+import at.ac.tuwien.big.we16.ue2.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +41,7 @@ public class BiddingAI implements Runnable {
         try {
             LOGGER.info("Bidding AI run");
             for (Product p : productList) {
-                if (dealOrNoDeal() && !ai.equals(p.getHighest_bidder())) {
+                if ((!p.isExpired()) && !ai.equals(p.getHighest_bidder()) && dealOrNoDeal()) {
                     BigDecimal bid = new BigDecimal(10);
                     bid = bid.add(p.getCurrent_bid());
                     LOGGER.info("Bidding on product:{} {} amount: {}", p.getId(), p.getName(), CurrencyFormatter.format(bid));
@@ -54,7 +51,7 @@ public class BiddingAI implements Runnable {
                         LOGGER.error("AI did not bid high enough something is weird!");
                     } catch (InsufficientFundsException e) {
                         LOGGER.error("AI did not have enough funds to bid something is weird!");
-                    } catch (HighestBidderExcpetion e) {
+                    } catch (HighestBidderExcpetion | InvalidProductException e) {
                         LOGGER.error("AI should not have bid on this product!");
                     }
                 } else {
