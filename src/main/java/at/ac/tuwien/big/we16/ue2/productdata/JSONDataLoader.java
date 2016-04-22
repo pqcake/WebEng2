@@ -37,6 +37,7 @@ public class JSONDataLoader {
         productMap=new HashMap<>();
         for(Product p:products){
             productMap.put(p.getId(),p);
+            LOGGER.debug("Adding product {} {} to map",p.getId(),p.getName());
         }
         LOGGER.debug(products.size()+" products loaded");
 
