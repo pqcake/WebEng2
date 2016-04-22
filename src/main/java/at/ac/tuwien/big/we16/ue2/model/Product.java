@@ -1,6 +1,8 @@
 package at.ac.tuwien.big.we16.ue2.model;
 
 import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -18,6 +20,16 @@ public class Product {
     private String img;
     private Date endtime;
     private SimpleDateFormat dt = new SimpleDateFormat("yyyy,MM,dd,HH,mm,ss,SSS");
+
+    private boolean allReadySent = false;
+
+    public boolean isAllReadySent() {
+        return allReadySent;
+    }
+
+    public void setAllReadySent(boolean allReadySent) {
+        this.allReadySent = allReadySent;
+    }
 
     public String getImg() {
         return img;
@@ -105,5 +117,10 @@ public class Product {
                 ", img='" + img + '\'' +
                 ", endtime=" + endtime +
                 '}';
+    }
+
+    public String toJason() {
+        Gson gs = new Gson();
+        return gs.toJson(this,Product.class);
     }
 }

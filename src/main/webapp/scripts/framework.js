@@ -115,7 +115,36 @@ function formatCurrency(x) {
 // change the URL.
 var socket = new WebSocket("ws://localhost:8080/socket");
 socket.onmessage = function (event) {
+    //testing stuff
+    console.log("event data: " + event.data);
+    if (event.data) {
+        var msg = JSON.parse(event.data);
+        switch(msg.type)
+        {
+            case "AUCTION_EXPIRED":
+                console.log("product id: "+ msg.productID);
+                console.log("current balance: " + msg.currentBalance);
+                console.log("runningBids: " + msg.runningBids);
+                console.log("wonAuctions: " + msg.wonAuctions);
+                console.log("lostAuctions: " + msg.lostAuctions);
+                //set attribute
+                $("[data-product-id="+ msg.productID + "] > a").toggleClass("expired");
+                $(".balance").text(msg.currentBalance);
+                $(".running-auctions-count").text(msg.runningBids);
+                $(".won-auctions-count").text(msg.wonAuctions);
+                $(".lost-auctions-count").text(msg.lostAuctions);
+                break;
+            case "NEW_BID":
+                
+                break;
+            case "OUTBIDDEN":
+                break;
 
-    /***  TODO write your code here ***/
+        }
+    }
+    else
+    {
+
+    }
 
 };

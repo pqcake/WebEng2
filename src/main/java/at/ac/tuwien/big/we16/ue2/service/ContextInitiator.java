@@ -20,6 +20,7 @@ public class ContextInitiator
     private ServletContext context;
     private BiddingService biddingService;
     private BiddingAI biddingAI;
+    private NotifierService notifierService;
 
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
@@ -39,6 +40,10 @@ public class ContextInitiator
         context.setAttribute("biddingService",biddingService);
         context.setAttribute("userPool",userPool);
         biddingAI=new BiddingAI(biddingService,productList);
+
+        notifierService = ServiceFactory.getNotifierService();
+        notifierService.setProducts(productList);
+        notifierService.setUserPool(userPool);
         LOGGER.debug("products {} loaded and set as attribute",products);
 
     }

@@ -40,5 +40,6 @@ public class JSONDataLoader {
             LOGGER.debug("Adding product {} {} to map",p.getId(),p.getName());
         }
         LOGGER.debug(products.size()+" products loaded");
+
     }
 }
