@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
             dispatcher.forward(request, response);
         }else{
             LOGGER.debug("No session found, forward to login!");
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/login.html");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/login.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -85,7 +85,7 @@ public class LoginServlet extends HttpServlet {
             }               
         } else if (action.equals("logout")){
             request.getSession(true).invalidate();
-            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.html");
+            RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
             dispatcher.forward(request, response);
         } else if (action.equals("userdata")) {
             User user =(User)request.getSession().getAttribute("user");

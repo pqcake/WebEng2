@@ -8,23 +8,8 @@
 </head>
 <body data-decimal-separator="," data-grouping-separator=".">
 
-<a href="#productsheadline" class="accessibility">Zum Inhalt springen</a>
+<%@ include file="header.jsp" %>
 
-<header aria-labelledby="bannerheadline">
-    <img class="title-image" src="../images/big-logo-small.png" alt="BIG Bid logo">
-
-    <h1 class="header-title" id="bannerheadline">
-        BIG Bid
-    </h1>
-    <nav aria-labelledby="navigationheadline">
-        <h2 class="accessibility" id="navigationheadline">Navigation</h2>
-        <ul class="navigation-list">
-            <li>
-                <a href="" class="button" accesskey="l">Registrieren</a>
-            </li>
-        </ul>
-    </nav>
-</header>
 <div class="main-container">
     <main aria-labelledby="formheadline">
         <form action="LoginServlet" class="form" method="post">
@@ -52,10 +37,8 @@
         </form>
     </main>
 </div>
-<footer>
-    © 2016 BIG Bid
-</footer>
-<script src="/scripts/jquery.js"></script>
-<script src="/scripts/framework.js"></script>
+
+<%@ include file="footer.jsp" %>
+
 </body>
 </html>

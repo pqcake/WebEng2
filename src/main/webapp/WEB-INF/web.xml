@@ -9,7 +9,7 @@
     </filter>
     <filter-mapping>
         <filter-name>LoginPageFilter</filter-name>
-        <url-pattern>/views/login.html</url-pattern>
+        <url-pattern>/views/login.jsp</url-pattern>
     </filter-mapping>-->
     <!-- Add your deployment description here -->
     <listener>
