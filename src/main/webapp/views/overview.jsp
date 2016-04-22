@@ -22,7 +22,7 @@
                         <c:url value="DetailServlet">
                             <c:param name="id" value="${item.id}"/>
                         </c:url>"
-                       class="product<c:if test="${item.isExpired()}"> expired</c:if>"
+                       class="product<c:if test="${item.isExpired()}"> expired</c:if><c:if test="${item.highest_bidder.username==user.username}"> highlight</c:if>"
                        title="Mehr Informationen zu ${item.name}"
                     >
                         <img class="product-image" src="../images/${item.img}" alt=""/>

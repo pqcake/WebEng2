@@ -31,20 +31,20 @@
                 </p>
             </div>
             <c:if test="${!product.isExpired()}">
-            <p class="detail-time">Restzeit: <span data-end-time="${product.getFormattedEndtime()}"
-                                                   class="detail-rest-time js-time-left"></span>
-            </p>
-            <form class="bid-form" method="post" action="">
-                <label class="bid-form-field" id="highest-price">
-                    <span class="highest-bid">${product.getFormattedCurrentBid()}</span>
-                    <span class="highest-bidder">${product.highest_bidder.username}</span>
-                </label>
-                <label class="accessibility" for="new-price"></label>
-                <input type="number" step="0.01" min="0" id="new-price" class="bid-form-field form-input"
-                       name="new-price" required>
-                <p class="bid-error">Es gibt bereits ein höheres Gebot oder der Kontostand ist zu niedrig.</p>
-                <input type="submit" id="submit-price" class="bid-form-field button" name="submit-price" value="Bieten">
-            </form>
+                <p class="detail-time">Restzeit: <span data-end-time="${product.getFormattedEndtime()}"
+                                                       class="detail-rest-time js-time-left"></span>
+                </p>
+                <form class="bid-form" method="post" action="">
+                    <label class="bid-form-field" id="highest-price">
+                        <span class="highest-bid">${product.getFormattedCurrentBid()}</span>
+                        <span class="highest-bidder">${product.highest_bidder.username}</span>
+                    </label>
+                    <label class="accessibility" for="new-price"></label>
+                    <input type="number" step="0.01" min="0" id="new-price" class="bid-form-field form-input"
+                           name="new-price" required>
+                    <p class="bid-error">Es gibt bereits ein höheres Gebot oder der Kontostand ist zu niedrig.</p>
+                    <input type="submit" id="submit-price" class="bid-form-field button" name="submit-price" value="Bieten">
+                </form>
             </c:if>
         </div>
     </main>
