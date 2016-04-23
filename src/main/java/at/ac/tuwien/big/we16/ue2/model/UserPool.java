@@ -7,13 +7,15 @@ package at.ac.tuwien.big.we16.ue2.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *
  * @author Mayerhofer
  */
 public class UserPool {
-    HashMap<String, User> users = new HashMap<String, User>();
+    Map<String, User> users = new ConcurrentHashMap<String, User>();
     
     public void registerUser(User user) {
         if(!users.containsKey(user.getUsername())) {

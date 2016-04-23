@@ -10,10 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 public class JSONDataLoader {
 
@@ -34,7 +33,7 @@ public class JSONDataLoader {
         Reader reader = new InputStreamReader(is);
         Gson gson = new GsonBuilder().setDateFormat("yyyy,MM,dd,HH,mm,ss,SSS").create();
         List<Product>products = gson.fromJson(reader, new TypeToken<List<Product>>(){}.getType());
-        productMap=new HashMap<>();
+        productMap=new ConcurrentSkipListMap<>();
         for(Product p:products){
             productMap.put(p.getId(),p);
             LOGGER.debug("Adding product {} {} to map",p.getId(),p.getName());
