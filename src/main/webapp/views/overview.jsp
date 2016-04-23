@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="user" class="at.ac.tuwien.big.we16.ue2.model.User" scope="session"/>
-<%@page contentType=" text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -23,7 +22,7 @@
                         <c:url value="DetailServlet">
                             <c:param name="id" value="${item.id}"/>
                         </c:url>"
-                       class="product<c:if test="${item.isExpired()}"> expired</c:if>"
+                       class="product<c:if test="${item.isExpired()}"> expired</c:if><c:if test="${item.highest_bidder.username==user.username}"> highlight</c:if>"
                        title="Mehr Informationen zu ${item.name}"
                     >
                         <img class="product-image" src="../images/${item.img}" alt=""/>
@@ -31,9 +30,18 @@
                             <dt>Bezeichnung</dt>
                             <dd class="product-name">${item.name}</dd>
                             <dt>Preis</dt>
-                            <dd class="product-price">
-                                ${item.getFormattedCurrentBid()} &euro;
-                            </dd>
+                            <c:choose>
+                                <c:when test="${item.current_bid==null}">
+                                    <dd class="no-bids">
+                                        Noch keine Gebote
+                                    </dd>
+                                </c:when>
+                                <c:otherwise>
+                                    <dd class="product-price">
+                                        ${item.getFormattedCurrentBid()}
+                                    </dd>
+                                </c:otherwise>
+                            </c:choose>
                             <dt>Verbleibende Zeit</dt>
                             <dd data-end-time="${item.getFormattedEndtime()}" data-end-text="abgelaufen"
                                 class="product-time js-time-left"></dd>

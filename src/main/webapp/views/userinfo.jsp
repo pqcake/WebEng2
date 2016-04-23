@@ -6,7 +6,7 @@
       <dd class="user-name">${user.getUsername()}</dd>
       <dt>Kontostand:</dt>
       <dd>
-        <span class="balance">${user.getFormattedBalance()} &euro;</span>
+        <span class="balance">${user.getFormattedBalance()}</span>
       </dd>
       <dt>Laufend:</dt>
       <dd>
