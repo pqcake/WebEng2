@@ -177,7 +177,6 @@ public class LoginServlet extends HttpServlet {
         */
     }
     @Override public void destroy() {
-        ServiceFactory.getNotifierService().stop();
     }
     
     @Override
