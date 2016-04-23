@@ -207,7 +207,21 @@ $(document).on("submit", ".bid-form", function(event) {
     var $form = $(this);
 
    $.post($form.attr("action"), $form.serialize(), function (data) {
-      document.write(data);
+       console.log("answer: " + data);
+       var msg = JSON.parse(data);
+       console.log("msg: " + msg);
+       console.log("msg running auctions: " +msg.runningAuctions)
+       console.log("msg new balance: " +msg.balance )
+       switch (msg.status)
+       {
+           case "ok":
+               $("ASIDE>DIV>DL>DD>SPAN.running-auctions-count").text(msg.runningAuctions);
+               $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.balance);
+               break;
+           case "error":
+               alert(msg.text);
+               break;
+       }
    });
 
 

@@ -64,9 +64,14 @@ public class User {
         }
     }
 
-    public void removeFunds(BigDecimal amount) {
+    public void newBid(BigDecimal amount,Product p) {
+        //substract amount from balance and increase running auctions
         synchronized (balance) {
             balance=balance.subtract(amount);
+        }
+        synchronized (auctions_running)
+        {
+            auctions_running.add(p);
         }
     }
 

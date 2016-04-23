@@ -31,7 +31,7 @@ public class BiddingService  implements IBiddingService{
                                 returnFunds(product.getHighest_bidder(), product, product.getCurrent_bid());
                                 product.setCurrent_bid(amount);
                                 product.setHighest_bidder(user);
-                                user.removeFunds(amount);
+                                user.newBid(amount,product);
                             } else {
                                 throw new InsufficientFundsException("Sie haben nicht genug Geld auf ihrem Konto!");
                             }
@@ -61,6 +61,10 @@ public class BiddingService  implements IBiddingService{
             NotifierService notifier = ServiceFactory.getNotifierService();
             OutbiddenMessage msg = new OutbiddenMessage(user.getBalance());
             notifier.notifyClient(user,msg);
+        }
+        else
+        {
+            LOGGER.debug("returnFunds: user has been null!");
         }
     }
 

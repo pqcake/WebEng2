@@ -9,7 +9,7 @@ public class AIUser extends User {
     @Override
     public void addFunds(BigDecimal funds){}
     @Override
-    public void removeFunds(BigDecimal funds){}
+    public void newBid(BigDecimal funds,Product p){}
     @Override
     public BigDecimal getBalance() {
         return new BigDecimal(Double.MAX_VALUE);

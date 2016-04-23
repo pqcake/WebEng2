@@ -2,6 +2,7 @@ package at.ac.tuwien.big.we16.ue2.servlet;
 
 import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
+import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
 import at.ac.tuwien.big.we16.ue2.service.BiddingService;
 import at.ac.tuwien.big.we16.ue2.service.IBiddingService;
@@ -21,7 +22,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Philipp on 21.04.2016.
@@ -30,7 +33,8 @@ public class DetailServlet extends HttpServlet {
     private Logger LOGGER = LogManager.getLogger(DetailServlet.class);
     private IBiddingService biddingService;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        biddingService = new BiddingService();
+        biddingService = (BiddingService)getServletContext().getAttribute("biddingService");
+        Map<String,String> answer = new HashMap<>();
         boolean ajax = "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
         if(ajax) {
             LOGGER.debug("got ajax request!");
@@ -38,7 +42,9 @@ public class DetailServlet extends HttpServlet {
             String productIDS = request.getParameter("product-id");
             BigDecimal newBid = new BigDecimal(newPrice);
             int productID = Integer.parseInt(productIDS);
-            User u = ServiceFactory.getNotifierService().isCorrectSession(request.getSession());
+
+            User u =  (User)request.getSession().getAttribute("user");
+
             if (u != null) {
                 LOGGER.debug("User found in detail page: " + u);
 
@@ -54,13 +60,20 @@ public class DetailServlet extends HttpServlet {
                                 //sendResponse("Ok",response);
                                 NewBidMessage msg = new NewBidMessage(u.getUsername(), newBid, productID);
                                 ServiceFactory.getNotifierService().notifyClients(msg);
-                                response.sendRedirect("../views/overview.jsp");
+
+                                answer.put("status","ok");
+                                answer.put("runningAuctions",String.valueOf(u.getAuctions_running().size()));
+                                answer.put("balance", String.valueOf(u.getBalance()));
+                                Gson gs = new Gson();
+                                sendResponse(gs.toJson(answer),response);
 
                             } catch (Exception e) {
                                 LOGGER.debug("exception: " + e);
                                 //respond with exception message
                                 try {
-                                    sendResponse("Exception:" + e.getMessage(), response);
+                                    answer.put("status","error");
+                                    answer.put("text",e.getMessage());
+                                    sendResponse(new Gson().toJson(answer), response);
                                 } catch (IOException eIO) {
                                     LOGGER.debug("could not write to client: " + e);
                                 }
