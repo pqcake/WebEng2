@@ -25,6 +25,7 @@ public class ContextInitiator
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
         biddingAI.stop();
+        ServiceFactory.getNotifierService().stop();
         LOGGER.debug("ServletContextListener destroyed");
     }
 
