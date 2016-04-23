@@ -3,6 +3,8 @@ package at.ac.tuwien.big.we16.ue2.service;
 import at.ac.tuwien.big.we16.ue2.model.Product;
 import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.util.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.math.BigDecimal;
 
@@ -11,7 +13,7 @@ import java.math.BigDecimal;
  */
 
 public class BiddingService  implements IBiddingService{
-
+    private static final Logger LOGGER= LogManager.getLogger(BiddingService.class);
     @Override
     public void bid(User user, Product product, BigDecimal amount) throws InsufficientAmountException, InsufficientFundsException, HighestBidderExcpetion, InvalidProductException {
         // product and user objects are globally used with the same reference therefore we lock using them to avoid users bidding on a product at the same time
@@ -31,18 +33,18 @@ public class BiddingService  implements IBiddingService{
                                 product.setHighest_bidder(user);
                                 user.removeFunds(amount);
                             } else {
-                                throw new InsufficientFundsException();
+                                throw new InsufficientFundsException("Sie haben nicht genug Geld auf ihrem Konto!");
                             }
 
                         } else {
-                            throw new InsufficientAmountException();
+                            throw new InsufficientAmountException("Ihr Angebot war zu niedrig, bitte bieten sie mehr!");
 
                         }
                     } else {
-                        throw new HighestBidderExcpetion();
+                        throw new HighestBidderExcpetion("Sie sind bereits Höchstbietender!");
                     }
                 } else {
-                  throw new InvalidProductException();
+                  throw new InvalidProductException("Diese Auktion ist bereits abgelaufen!");
                 }
 
 
@@ -53,6 +55,7 @@ public class BiddingService  implements IBiddingService{
 
     private void returnFunds(User user,Product product,BigDecimal amount){
         if(user!=null) {
+            LOGGER.debug("return funds to user: " + user.getUsername());
             user.addFunds(amount);
             //inform user (call notifierservice)
             NotifierService notifier = ServiceFactory.getNotifierService();

@@ -5,6 +5,7 @@ import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import at.ac.tuwien.big.we16.ue2.util.AuctionMessage;
 import at.ac.tuwien.big.we16.ue2.util.Message;
+import at.ac.tuwien.big.we16.ue2.util.NewBidMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -34,7 +35,7 @@ public class NotifierService {
         Runnable notifyUsers = new Runnable() {
             @Override
             public void run() {
-                LOGGER.debug("running every second!");
+               // LOGGER.debug("running every second!");
                 boolean hasExpired = false;
                 List<Product> productsExp = new ArrayList<>();
 
@@ -47,7 +48,7 @@ public class NotifierService {
                             hasExpired = true;
                         }
                     }
-                    LOGGER.debug("has expired: " + hasExpired);
+                   // LOGGER.debug("has expired: " + hasExpired);
 
                     if (clients != null) {
                         if (hasExpired) {
@@ -82,7 +83,6 @@ public class NotifierService {
         for (Map.Entry<Session, HttpSession> entry : clients.entrySet()) {
             try {
                 //send with json
-                LOGGER.debug("Sending json!");
                 entry.getKey().getBasicRemote().sendText(msg.toJson());
 
             } catch (IOException e) {
@@ -92,20 +92,44 @@ public class NotifierService {
     }
 
     public void notifyClient(User user,Message msg) {
+        LOGGER.debug("NotifyClient method entered!");
         for (Map.Entry<Session, HttpSession> entry : clients.entrySet()) {
-            if(entry.getValue().getAttribute("user").equals(user.getUsername())) {
-                //send message to that user
-                try {
-                    //send with json
-                    LOGGER.debug("Sending json!");
-                    entry.getKey().getBasicRemote().sendText(msg.toJson());
-                    return;
+            if (entry.getValue().getAttribute("user") != null) {
+                if (entry.getValue().getAttribute("user").toString().equals(user.getUsername())) {
+                    //send message to that user
+                    try {
+                        //send with json
+                        LOGGER.debug("Sending json to user: " + user.getUsername());
+                        entry.getKey().getBasicRemote().sendText(msg.toJson());
+                        return;
 
-                } catch (IOException e) {
-                    LOGGER.debug("error: " + e);
+                    } catch (IOException e) {
+                        LOGGER.debug("error: " + e);
+                    }
+                }
+            } else {
+                LOGGER.debug("user has been null!");
+            }
+        }
+    }
+
+    public User isCorrectSession(HttpSession session)
+    {
+        for(Map.Entry<Session, HttpSession> entry: clients.entrySet())
+        {
+            if(entry.getValue().equals(session))
+            {
+                //get user
+                User u = userPool.getUser(entry.getValue().getAttribute("user").toString());
+                if(u != null)
+                {
+                    LOGGER.debug("user: " + u);
+                    return u;
                 }
             }
         }
+        LOGGER.debug("no httpsession found!");
+        return null;
     }
 
     /**

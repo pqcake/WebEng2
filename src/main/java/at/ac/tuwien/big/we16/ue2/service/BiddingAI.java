@@ -47,6 +47,8 @@ public class BiddingAI implements Runnable {
                     LOGGER.info("Bidding on product:{} {} amount: {}", p.getId(), p.getName(), CurrencyFormatter.format(bid));
                     try {
                         biddingService.bid(ai, p, bid);
+                        NewBidMessage msg = new NewBidMessage(ai.getUsername(),bid,p.getId());
+                        ServiceFactory.getNotifierService().notifyClients(msg);
                     } catch (InsufficientAmountException e) {
                         LOGGER.error("AI did not bid high enough something is weird!");
                     } catch (InsufficientFundsException e) {

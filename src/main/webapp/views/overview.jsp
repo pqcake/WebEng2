@@ -14,7 +14,7 @@
     <div class="main-container">
     <%@include file="userinfo.jsp"%>
     <main aria-labelledby="productsheadline">
-        <h2 class="main-headline" id="productsheadline">Produkte</h2>
+        <h2 class="main-headline" onclick="testSet()" id="productsheadline">Produkte</h2>
         <div class="products">
             <c:forEach var="item" items="${products}">
                 <div class="product-outer" data-product-id="${item.id}">

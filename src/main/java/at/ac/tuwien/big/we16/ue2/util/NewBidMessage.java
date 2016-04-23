@@ -53,6 +53,6 @@ public class NewBidMessage extends Message {
     public String toJson()
     {
         Gson gs = new Gson();
-        return gs.toJson(this,AuctionMessage.class);
+        return gs.toJson(this,NewBidMessage.class);
     }
 }

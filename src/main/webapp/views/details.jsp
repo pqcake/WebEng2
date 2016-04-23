@@ -6,6 +6,7 @@
     <title>BIG Bid - Der Pate (Film)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="script" href="../scripts/framework.js">
 </head>
 <body data-decimal-separator="," data-grouping-separator=".">
 
@@ -43,6 +44,7 @@
                 <input type="number" step="0.01" min="0" id="new-price" class="bid-form-field form-input"
                        name="new-price" required>
                 <p class="bid-error">Es gibt bereits ein höheres Gebot oder der Kontostand ist zu niedrig.</p>
+                <input type="hidden" name="product-id" value="${product.id}">
                 <input type="submit" id="submit-price" class="bid-form-field button" name="submit-price" value="Bieten">
             </form>
             </c:if>
