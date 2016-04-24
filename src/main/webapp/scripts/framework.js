@@ -123,12 +123,25 @@ function start(websocketServerLocation){
                     console.log("runningBids: " + msg.runningBids);
                     console.log("wonAuctions: " + msg.wonAuctions);
                     console.log("lostAuctions: " + msg.lostAuctions);
-                    //set attribute
+
+                    //overview
                     $("a",product_outer).toggleClass("expired");
+
+                    //userinfo
                     $(".balance").html(formatCurrency(msg.currentBalance));
                     $(".running-auctions-count").text(msg.runningBids);
                     $(".won-auctions-count").text(msg.wonAuctions);
                     $(".lost-auctions-count").text(msg.lostAuctions);
+
+                    //details
+                    //$(".auction-running").css("display","none");
+                    $(".auction-running").hide();
+                    //$(".auction-expired-text").css("display","inline");
+                    $("#expired-text").show();
+                    if($(".highest-bidder").first().text()!=""){
+                        //$("#expired-text-with-bidder").css("display","inline");
+                        $("#expired-text-with-bidder").show();
+                    }
                     break;
                 case "NEW_BID":
                     console.log("new_bid");
@@ -226,7 +239,7 @@ $(document).on("submit", ".bid-form", function(event) {
                $(".highest-bidder").text(username);
                $(".highest-bid").html(formatCurrency(bid));
                //set highlighting, edit: not necessary because we are on details.jsp and highlight only is on overview
-               $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
+               //$("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
                break;
            case "error":
                biderror.css("display","inline");
