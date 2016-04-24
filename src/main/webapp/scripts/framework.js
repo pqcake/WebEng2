@@ -228,6 +228,7 @@ $(document).on("submit", ".bid-form", function(event) {
            case "error":
                //alert(msg.text);
                $("MAIN>DIV>FORM>.bid-error").css("display","inline");
+               $("MAIN>DIV>FORM>.bid-error").text(msg.text);
                break;
        }
    });
