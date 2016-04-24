@@ -58,6 +58,15 @@ public class NotifierService {
                                     {
                                         //for every product send a message to all clients
                                         User u = userPool.getUser(entry.getValue().getAttribute("user").toString());
+                                        List<Product> running=u.getAuctions_running();
+                                        if(running.contains(p)){
+                                            if(p.getHighest_bidder().equals(u)){
+                                                u.getAuctions_won().add(p);
+                                            }else{
+                                                u.getAuctions_lost().add(p);
+                                            }
+                                            running.remove(p);
+                                        }
                                         Message msg = new AuctionMessage(u,p.getId());
                                         //send with json
                                         LOGGER.debug("Sending json!");
