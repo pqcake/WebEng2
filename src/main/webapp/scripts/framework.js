@@ -209,6 +209,7 @@ $(document).on("submit", ".bid-form", function(event) {
        switch (msg.status)
        {
            case "ok":
+               $("MAIN>DIV>FORM>.bid-error").css("display","none");
                $("ASIDE>DIV>DL>DD>SPAN.running-auctions-count").text(msg.runningAuctions);
                $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.balance + " €");
                //also set highest bidder and new bid in details page
@@ -220,7 +221,8 @@ $(document).on("submit", ".bid-form", function(event) {
                $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
                break;
            case "error":
-               alert(msg.text);
+               //alert(msg.text);
+               $("MAIN>DIV>FORM>.bid-error").css("display","inline");
                break;
        }
    });
