@@ -2,14 +2,10 @@ package at.ac.tuwien.big.we16.ue2.model;
 
 import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 public class Product {
 

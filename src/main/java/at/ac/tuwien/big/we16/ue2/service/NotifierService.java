@@ -5,15 +5,12 @@ import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import at.ac.tuwien.big.we16.ue2.util.AuctionMessage;
 import at.ac.tuwien.big.we16.ue2.util.Message;
-import at.ac.tuwien.big.we16.ue2.util.NewBidMessage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;

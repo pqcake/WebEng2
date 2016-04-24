@@ -1,21 +1,12 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package at.ac.tuwien.big.we16.ue2.model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- *
- * @author Mayerhofer
- */
 public class UserPool {
-    Map<String, User> users = new ConcurrentHashMap<String, User>();
+    private Map<String, User> users = new ConcurrentHashMap<String, User>();
     
     public void registerUser(User user) {
         if(!users.containsKey(user.getUsername())) {

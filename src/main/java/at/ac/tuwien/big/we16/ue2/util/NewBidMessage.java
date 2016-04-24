@@ -1,6 +1,5 @@
 package at.ac.tuwien.big.we16.ue2.util;
 
-import at.ac.tuwien.big.we16.ue2.model.User;
 import com.google.gson.Gson;
 
 import java.math.BigDecimal;

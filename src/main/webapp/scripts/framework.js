@@ -134,13 +134,13 @@ function start(websocketServerLocation){
                     $(".lost-auctions-count").text(msg.lostAuctions);
 
                     //details
-                    //$(".auction-running").css("display","none");
-                    $(".auction-running").hide();
-                    //$(".auction-expired-text").css("display","inline");
-                    $("#expired-text").show();
+                    $(".auction-running").css("display","none");
+                    //$(".auction-running").hide();
+                    $(".auction-expired-text").css("display","inline");
+                    //$("#expired-text").show();
                     if($(".highest-bidder").first().text()!=""){
-                        //$("#expired-text-with-bidder").css("display","inline");
-                        $("#expired-text-with-bidder").show();
+                        $("#expired-text-with-bidder").css("display","inline");
+                        //$("#expired-text-with-bidder").show();
                     }
                     break;
                 case "NEW_BID":
@@ -225,8 +225,8 @@ $(document).on("submit", ".bid-form", function(event) {
        console.log("answer: " + data);
        var msg = JSON.parse(data);
        console.log("msg: " + msg);
-       console.log("msg running auctions: " +msg.runningAuctions)
-       console.log("msg new balance: " +msg.balance )
+       console.log("msg running auctions: " +msg.runningAuctions);
+       console.log("msg new balance: " +msg.balance );
        var biderror=$(".bid-error");
        switch (msg.status)
        {
@@ -238,8 +238,6 @@ $(document).on("submit", ".bid-form", function(event) {
                var username = $(".user-name").text();
                $(".highest-bidder").text(username);
                $(".highest-bid").html(formatCurrency(bid));
-               //set highlighting, edit: not necessary because we are on details.jsp and highlight only is on overview
-               //$("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
                break;
            case "error":
                biderror.css("display","inline");

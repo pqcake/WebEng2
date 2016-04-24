@@ -2,8 +2,6 @@ package at.ac.tuwien.big.we16.ue2.util;
 
 import com.google.gson.Gson;
 
-import java.math.BigDecimal;
-
 /**
  * Created by pqpies on 4/24/16.
  */

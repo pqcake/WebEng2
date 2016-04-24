@@ -1,7 +1,6 @@
 package at.ac.tuwien.big.we16.ue2.websocket;
 
 import at.ac.tuwien.big.we16.ue2.service.NotifierService;
-import com.google.gson.Gson;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

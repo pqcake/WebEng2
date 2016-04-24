@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentSkipListMap;
 public class JSONDataLoader {
 
     private static final Logger LOGGER= LogManager.getLogger(JSONDataLoader.class);
-    //private static List<Product> products;
     private static Map<Long,Product> productMap;
 
     public static Map<Long,Product> getProducts() {

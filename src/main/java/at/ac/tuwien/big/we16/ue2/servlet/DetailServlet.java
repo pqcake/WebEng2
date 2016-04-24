@@ -3,14 +3,11 @@ package at.ac.tuwien.big.we16.ue2.servlet;
 import at.ac.tuwien.big.we16.ue2.model.Product;
 
 import at.ac.tuwien.big.we16.ue2.model.User;
-import at.ac.tuwien.big.we16.ue2.model.UserPool;
-import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
 import at.ac.tuwien.big.we16.ue2.service.BiddingService;
 import at.ac.tuwien.big.we16.ue2.service.IBiddingService;
 import at.ac.tuwien.big.we16.ue2.service.ServiceFactory;
 import at.ac.tuwien.big.we16.ue2.util.*;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

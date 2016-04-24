@@ -7,7 +7,6 @@ import at.ac.tuwien.big.we16.ue2.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.servlet.ServletContextListener;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
@@ -33,7 +32,7 @@ public class BiddingAI implements Runnable {
         executor.scheduleAtFixedRate(this,0,10, TimeUnit.SECONDS);
         rnd=new Random(System.currentTimeMillis());
         ai=new AIUser();
-        ai.setUsername("arnie@braunschweiger");
+        ai.setUsername("arnie@comma.ai");
         ai.setPassword("Mistviech");
     }
     @Override

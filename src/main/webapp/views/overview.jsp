@@ -21,7 +21,7 @@
     <div class="main-container">
     <%@include file="userinfo.jsp"%>
     <main aria-labelledby="productsheadline">
-        <h2 class="main-headline" onclick="testSet()" id="productsheadline">Produkte</h2>
+        <h2 class="main-headline" id="productsheadline">Produkte</h2>
         <div class="products">
             <c:forEach var="item" items="${products}">
                 <c:choose>
@@ -50,7 +50,7 @@
                             <dt>Preis</dt>
                             <c:choose>
                                 <c:when test="${item.current_bid==null}">
-                                    <dd class="no-bids">
+                                    <dd class="product-price">
                                         Noch keine Gebote
                                     </dd>
                                 </c:when>

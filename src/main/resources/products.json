@@ -10,35 +10,35 @@
             "name": "Forty Licks",
             "img" : "rolling_stones.png",
             "current_bid" : "10.99",
-            "endtime": "2016,04,24,22,42,30,000"
+            "endtime": "2016,04,24,23,18,30,000"
         },
         {
             "id": 3,
             "name": "Reload",
             "img" : "metallica.png",
             "current_bid" : "3.99",
-            "endtime": "2016,04,24,11,12,23,000"
+            "endtime": "2016,04,27,13,35,23,000"
         },
         {
             "id": 4,
             "name": "The Godfather",
             "img" : "the_godfather.png",
             "current_bid" : "4.5",
-            "endtime": "2016,04,25,15,16,50,000"
+            "endtime": "2016,04,27,13,33,50,000"
         },
         {
             "id": 5,
             "name": "The Martian",
             "img" : "the_martian.png",
             "current_bid" : "123.45",
-            "endtime": "2016,04,25,10,11,12,000"
+            "endtime": "2016,04,27,13,25,12,000"
         },
         {
             "id": 6,
             "name": "The Wizard of Oz",
             "img" : "the_wizard_of_oz.png",
             "current_bid" : "56.78",
-            "endtime": "2016,04,26,13,21,11,000"
+            "endtime": "2016,04,28,13,21,11,000"
         },
         {
             "id": 7,

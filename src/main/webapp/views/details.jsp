@@ -3,7 +3,7 @@
 <html lang="de">
 <head>
     <meta charset="utf-8">
-    <title>BIG Bid - Der Pate (Film)</title>
+    <title>BIG Bid - ${product.name}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../styles/style.css">
 </head>
@@ -19,16 +19,14 @@
         </div>
         <div data-product-id="${product.id}" class="details-data">
             <h2 class="main-headline" id="productheadline">${product.name}</h2>
-            <p>
             <div class="auction-expired-text" id="expired-text" style="display:${product.isExpired() ? 'inline' : 'none'}">
                 Diese Auktion ist bereits abgelaufen.
             </div>
             <div class="auction-expired-text" id="expired-text-with-bidder" style="display:${(product.isExpired() && product.highest_bidder!=null) ? 'inline' : 'none'}">
-                Das Produkt wurde um
-                <span class="highest-bid">${product.getFormattedCurrentBid()}</span> an
+                Das Produkt wurde um <span class="highest-bid">${product.getFormattedCurrentBid()}</span> an
                 <span class="highest-bidder">${product.highest_bidder.username}</span> verkauft.
             </div>
-            </p>
+
                 <div class="auction-running" style="display:${product.isExpired() ? 'none' : 'inline'}">
                     <p class="detail-time">Restzeit: <span data-end-time="${product.getFormattedEndtime()}"
                                                            class="detail-rest-time js-time-left"></span>
