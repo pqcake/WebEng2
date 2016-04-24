@@ -160,6 +160,8 @@ function start(websocketServerLocation){
         //try to reconnect in 5 seconds
         setTimeout(function(){start(websocketServerLocation)}, 5000);
     };
+
+
 }
 start(serverLocation);
 /*var socket = new WebSocket("ws://localhost:8080/socket");
@@ -205,6 +207,8 @@ socket.onmessage = function (event) {
 $(document).on("submit", ".bid-form", function(event) {
 
     var $form = $(this);
+    //save bid for later
+    var bid = $('.bid-form').find('input[name="new-price"]').val();
 
    $.post($form.attr("action"), $form.serialize(), function (data) {
        console.log("answer: " + data);
@@ -217,6 +221,11 @@ $(document).on("submit", ".bid-form", function(event) {
            case "ok":
                $("ASIDE>DIV>DL>DD>SPAN.running-auctions-count").text(msg.runningAuctions);
                $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.balance);
+               //also set highest bidder and new bid in details page
+               var username = $(".main-container > .sidebar > " +
+                   " .user-info-container > .user-data.properties > .user-name").text();
+               $("MAIN>DIV>FORM>LABEL>SPAN.highest-bidder").text(username);
+               $("MAIN>DIV>FORM>LABEL>SPAN.highest-bid").text(bid + " €");
                break;
            case "error":
                alert(msg.text);

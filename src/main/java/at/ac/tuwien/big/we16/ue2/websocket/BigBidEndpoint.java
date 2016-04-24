@@ -2,6 +2,8 @@ package at.ac.tuwien.big.we16.ue2.websocket;
 
 import at.ac.tuwien.big.we16.ue2.service.NotifierService;
 import com.google.gson.Gson;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 import javax.websocket.*;
@@ -13,7 +15,7 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value="/socket", configurator = BigBidConfigurator.class)
 public class BigBidEndpoint {
     private final NotifierService notifierService;
-
+    private static final Logger LOGGER = LogManager.getLogger(BigBidEndpoint.class);
     public BigBidEndpoint(NotifierService notifierService) {
         this.notifierService = notifierService;
     }
@@ -39,6 +41,7 @@ public class BigBidEndpoint {
      */
     @OnClose
     public void onClose(Session socketSession) {
+        LOGGER.debug("closing session!");
         this.notifierService.unregister(socketSession);
     }
 }

@@ -85,7 +85,7 @@ public class NotifierService {
                 //send with json
                 entry.getKey().getBasicRemote().sendText(msg.toJson());
 
-            } catch (IOException e) {
+            } catch (Exception e) {
                 LOGGER.debug("error: " + e);
             }
         }
@@ -100,10 +100,12 @@ public class NotifierService {
                     try {
                         //send with json
                         LOGGER.debug("Sending json to user: " + user.getUsername());
+                        LOGGER.debug("is open:" + entry.getKey().isOpen());
+
                         entry.getKey().getBasicRemote().sendText(msg.toJson());
                         return;
 
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         LOGGER.debug("error: " + e);
                     }
                 }
@@ -111,25 +113,6 @@ public class NotifierService {
                 LOGGER.debug("user has been null!");
             }
         }
-    }
-
-    public User isCorrectSession(HttpSession session)
-    {
-        for(Map.Entry<Session, HttpSession> entry: clients.entrySet())
-        {
-            if(entry.getValue().equals(session))
-            {
-                //get user
-                User u = userPool.getUser(entry.getValue().getAttribute("user").toString());
-                if(u != null)
-                {
-                    LOGGER.debug("user: " + u);
-                    return u;
-                }
-            }
-        }
-        LOGGER.debug("no httpsession found!");
-        return null;
     }
 
     /**

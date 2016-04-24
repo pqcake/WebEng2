@@ -94,7 +94,7 @@ public class DetailServlet extends HttpServlet {
         }
         else
         {
-            LOGGER.debug("NO AJAY!");
+            LOGGER.debug("NO AJAX!");
         }
     }
 
