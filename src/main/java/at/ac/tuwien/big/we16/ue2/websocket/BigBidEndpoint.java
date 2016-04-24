@@ -35,6 +35,13 @@ public class BigBidEndpoint {
     {
 
     }
+
+    @OnError
+    public void onError(Session session, Throwable t) {
+       LOGGER.debug(t);
+       // this.notifierService.unregister(session);
+    }
+
     /**
      * When a socket connection is closed, we remove its session from the
      * notifier service.

@@ -61,9 +61,10 @@ public class NotifierService {
                                         Message msg = new AuctionMessage(u,p.getId());
                                         //send with json
                                         LOGGER.debug("Sending json!");
-                                        entry.getKey().getBasicRemote().sendText(msg.toJson());
+                                        send(entry.getKey(),msg);
+                                        //entry.getKey().getBasicRemote().sendText(msg.toJson());
                                     }
-                                } catch (IOException e) {
+                                } catch (Exception e) {
                                     LOGGER.debug("error: " + e);
                                 }
                             }
@@ -83,8 +84,8 @@ public class NotifierService {
         for (Map.Entry<Session, HttpSession> entry : clients.entrySet()) {
             try {
                 //send with json
-                entry.getKey().getBasicRemote().sendText(msg.toJson());
-
+                //entry.getKey().getBasicRemote().sendText(msg.toJson());
+                send(entry.getKey(),msg);
             } catch (Exception e) {
                 LOGGER.debug("error: " + e);
             }
@@ -101,8 +102,8 @@ public class NotifierService {
                         //send with json
                         LOGGER.debug("Sending json to user: " + user.getUsername());
                         LOGGER.debug("is open:" + entry.getKey().isOpen());
-
-                        entry.getKey().getBasicRemote().sendText(msg.toJson());
+                        send(entry.getKey(),msg);
+                        //entry.getKey().getBasicRemote().sendText(msg.toJson());
                         return;
 
                     } catch (Exception e) {
@@ -112,6 +113,17 @@ public class NotifierService {
             } else {
                 LOGGER.debug("user has been null!");
             }
+        }
+    }
+
+    private synchronized void send(Session user, Message msg) throws IOException
+    {
+        try {
+            user.getBasicRemote().sendText(msg.toJson());
+        }
+        catch (IOException e)
+        {
+            throw new IOException(e);
         }
     }
 

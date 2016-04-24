@@ -132,20 +132,23 @@ function start(websocketServerLocation){
                     console.log("lostAuctions: " + msg.lostAuctions);
                     //set attribute
                     $("[data-product-id="+ msg.productID + "] > a").toggleClass("expired");
-                    $(".balance").text(msg.currentBalance);
+                    $(".balance").text(msg.currentBalance + " €");
                     $(".running-auctions-count").text(msg.runningBids);
                     $(".won-auctions-count").text(msg.wonAuctions);
                     $(".lost-auctions-count").text(msg.lostAuctions);
                     break;
                 case "NEW_BID":
-                    console.log(msg);
-                    //console.log("highest bidder: " + msg.highestBidName);
+
                     $("[data-product-id="+ msg.productID + "] >  a > .product-properties.properties > .product-highest").text(msg.highestBidName);
-                    $("[data-product-id="+ msg.productID + "] >  a > .product-properties.properties > .product-price").text(msg.bid);
+                    $("[data-product-id="+ msg.productID + "] >  a > .product-properties.properties > .product-price").text(msg.bid + " €");
+                    //also set highest bidder and bid in details (form) page
+                    $("MAIN>DIV>FORM>LABEL>SPAN.highest-bidder").text(msg.highestBidName);
+                    $("MAIN>DIV>FORM>LABEL>SPAN.highest-bid").text(msg.bid + " €");
+
 
                     break;
                 case "OUTBIDDEN":
-                    $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.newBalance);
+                    $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.newBalance + " €");
                     break;
 
             }
@@ -158,49 +161,13 @@ function start(websocketServerLocation){
     };
     ws.onclose = function(){
         //try to reconnect in 5 seconds
-        setTimeout(function(){start(websocketServerLocation)}, 5000);
+        setTimeout(function(){start(serverLocation)}, 5000);
     };
 
 
 }
 start(serverLocation);
-/*var socket = new WebSocket("ws://localhost:8080/socket");
-socket.onmessage = function (event) {
-    //testing stuff
-    console.log("event data: " + event.data);
-    if (event.data) {
-        var msg = JSON.parse(event.data);
-        switch(msg.type)
-        {
-            case "AUCTION_EXPIRED":
-                console.log("product id: "+ msg.productID);
-                console.log("current balance: " + msg.currentBalance);
-                console.log("runningBids: " + msg.runningBids);
-                console.log("wonAuctions: " + msg.wonAuctions);
-                console.log("lostAuctions: " + msg.lostAuctions);
-                //set attribute
-                $("[data-product-id="+ msg.productID + "] > a").toggleClass("expired");
-                $(".balance").text(msg.currentBalance);
-                $(".running-auctions-count").text(msg.runningBids);
-                $(".won-auctions-count").text(msg.wonAuctions);
-                $(".lost-auctions-count").text(msg.lostAuctions);
-                break;
-            case "NEW_BID":
-                console.log(msg);
-                $("[data-product-id="+ msg.productID + "] >  .product-price").text(msg.bid);
-                $("[data-product-id="+ msg.productID + "] >  .product-highest").text(msg.highestBidName);
-                break;
-            case "OUTBIDDEN":
-                break;
 
-        }
-    }
-    else
-    {
-
-    }
-
-};*/
 
 
 
@@ -220,7 +187,7 @@ $(document).on("submit", ".bid-form", function(event) {
        {
            case "ok":
                $("ASIDE>DIV>DL>DD>SPAN.running-auctions-count").text(msg.runningAuctions);
-               $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.balance);
+               $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.balance + " €");
                //also set highest bidder and new bid in details page
                var username = $(".main-container > .sidebar > " +
                    " .user-info-container > .user-data.properties > .user-name").text();
