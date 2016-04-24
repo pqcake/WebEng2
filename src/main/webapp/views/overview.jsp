@@ -43,7 +43,7 @@
                        class="${productclass}"
                        title="Mehr Informationen zu ${item.name}"
                     >
-                        <img class="product-image" src="../images/${item.img}" alt=""/>
+                        <img class="product-image" src="../images/${item.img}" alt="Product Image"/>
                         <dl class="product-properties properties">
                             <dt>Bezeichnung</dt>
                             <dd class="product-name">${item.name}</dd>

@@ -6,7 +6,6 @@
     <title>BIG Bid - Der Pate (Film)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../styles/style.css">
-    <link rel="script" href="../scripts/framework.js">
 </head>
 <body data-decimal-separator="," data-grouping-separator=".">
 
