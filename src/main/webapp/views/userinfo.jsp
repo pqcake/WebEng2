@@ -15,7 +15,7 @@
       </dd>
       <dt>Gewonnen:</dt>
       <dd>
-        <span class="won-auctions-count">${user.aouctions_won.size()}</span>
+        <span class="won-auctions-count">${user.auctions_won.size()}</span>
         <span class="auction-label" data-plural="Auktionen" data-singular="Auktion">Auktionen</span>
       </dd>
       <dt>Verloren:</dt>

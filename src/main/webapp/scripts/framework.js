@@ -9,6 +9,14 @@
     })
 })*/
 
+/*$(document).ready(function () {
+    //overview
+    var productouter=$(".product-outer[data-product-id=4]");
+    $(".product-price",productouter).text("123123"); //Preis
+    $(".product-highest",productouter).text("Testname"); //Name
+    $("a",productouter).toggleClass("expired"); //expired class toggle
+})*/
+
 
 /* 
     checks if native form validation is available.
@@ -122,6 +130,7 @@ function start(websocketServerLocation){
         console.log("event data: " + event.data);
         if (event.data) {
             var msg = JSON.parse(event.data);
+            var product_outer=$("[data-product-id="+ msg.productID + "]");
             switch(msg.type)
             {
                 case "AUCTION_EXPIRED":
@@ -131,19 +140,23 @@ function start(websocketServerLocation){
                     console.log("wonAuctions: " + msg.wonAuctions);
                     console.log("lostAuctions: " + msg.lostAuctions);
                     //set attribute
-                    $("[data-product-id="+ msg.productID + "] > a").toggleClass("expired");
+                    $("a",product_outer).toggleClass("expired");
                     $(".balance").text(msg.currentBalance + " €");
                     $(".running-auctions-count").text(msg.runningBids);
                     $(".won-auctions-count").text(msg.wonAuctions);
                     $(".lost-auctions-count").text(msg.lostAuctions);
                     break;
                 case "NEW_BID":
-                    $("[data-product-id="+ msg.productID + "] .product-highest,[data-product-id="+ msg.productID + "] .highest-bidder").text(msg.highestBidName);
-                    $("[data-product-id="+ msg.productID + "] .product-price,[data-product-id="+ msg.productID + "] .highest-bid").text(msg.bid + " €");
+                    //overview.jsp: product-highest     details.jsp: highest-bidder
+                    $(".product-highest, .highest-bidder", product_outer).text(msg.highestBidName);
+                    //overview.jsp: product-price     details.jsp: highest-bid
+                    $(".product-price, .highest-bid",product_outer).text(msg.bid + " €");
                     break;
                 case "OUTBIDDEN":
-                    $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.newBalance + " €");
-                    $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight", false);
+                    console.log("outbidden");
+                    console.log($(".balance").text());
+                    $(".balance").text(msg.newBalance+ " €");
+                    $("a",product_outer).toggleClass("highlight", false);
                     break;
 
             }
@@ -203,37 +216,37 @@ $(document).on("submit", ".bid-form", function(event) {
 
     var $form = $(this);
     //save bid for later
-    var bid = $('.bid-form').find('input[name="new-price"]').val();
+    var $bid_input=$("#new-price",$form);
+    var bid = $bid_input.val();
 
-   $.post($form.attr("action"), $form.serialize(), function (data) {
+    $.post($form.attr("action"), $form.serialize(), function (data) {
        console.log("answer: " + data);
        var msg = JSON.parse(data);
        console.log("msg: " + msg);
        console.log("msg running auctions: " +msg.runningAuctions)
        console.log("msg new balance: " +msg.balance )
+       var biderror=$(".bid-error");
        switch (msg.status)
        {
            case "ok":
-               $("MAIN>DIV>FORM>.bid-error").css("display","none");
-               $("ASIDE>DIV>DL>DD>SPAN.running-auctions-count").text(msg.runningAuctions);
-               $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.balance + " €");
+               biderror.css("display","none");
+               $(".running-auctions-count").text(msg.runningAuctions);
+               $(".balance").text(msg.balance + " €");
                //also set highest bidder and new bid in details page
-               var username = $(".main-container > .sidebar > " +
-                   " .user-info-container > .user-data.properties > .user-name").text();
-               $("MAIN>DIV>FORM>LABEL>SPAN.highest-bidder").text(username);
-               $("MAIN>DIV>FORM>LABEL>SPAN.highest-bid").text(bid + " €");
-               //set highlighting
-               $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
+               var username = $(".user-name").text();
+               $(".highest-bidder").text(username);
+               $(".highest-bid").text(bid + " €");
+               //set highlighting, edit: not necessary because we are on details.jsp and highlight only is on overview
+               //$("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
                break;
            case "error":
-               //alert(msg.text);
-               $("MAIN>DIV>FORM>.bid-error").css("display","inline");
-               $("MAIN>DIV>FORM>.bid-error").text(msg.text);
+               biderror.css("display","inline");
+               biderror.text(msg.text);
                break;
        }
    });
-
-
+    //clear input
+    $bid_input.val("");
     event.preventDefault(); // Important! Prevents submitting the form.
 });
 

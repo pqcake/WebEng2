@@ -1,10 +1,8 @@
 package at.ac.tuwien.big.we16.ue2.model;
 
 import at.ac.tuwien.big.we16.ue2.util.CurrencyFormatter;
-import org.h2.mvstore.ConcurrentArrayList;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,13 +12,13 @@ public class User {
     private String username = "";
     private String password = "";
     private BigDecimal balance= new BigDecimal(1500);
-    private List<Product> auctions_running,aouctions_won,auctions_lost;
+    private List<Product> auctions_running, auctions_won,auctions_lost;
 
 
     public User(){
 
         auctions_running= Collections.synchronizedList(new LinkedList<>());
-        aouctions_won= Collections.synchronizedList(new LinkedList<>());
+        auctions_won = Collections.synchronizedList(new LinkedList<>());
         auctions_lost= Collections.synchronizedList(new LinkedList<>());
     }
 
@@ -44,8 +42,8 @@ public class User {
         return auctions_running;
     }
 
-    public List<Product> getAouctions_won() {
-        return aouctions_won;
+    public List<Product> getAuctions_won() {
+        return auctions_won;
     }
 
     public List<Product> getAuctions_lost() {
