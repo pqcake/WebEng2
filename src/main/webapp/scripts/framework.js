@@ -138,14 +138,8 @@ function start(websocketServerLocation){
                     $(".lost-auctions-count").text(msg.lostAuctions);
                     break;
                 case "NEW_BID":
-
-                    $("[data-product-id="+ msg.productID + "] >  a > .product-properties.properties > .product-highest").text(msg.highestBidName);
-                    $("[data-product-id="+ msg.productID + "] >  a > .product-properties.properties > .product-price").text(msg.bid + " €");
-                    //also set highest bidder and bid in details (form) page
-                    $("MAIN>DIV>FORM>LABEL>SPAN.highest-bidder").text(msg.highestBidName);
-                    $("MAIN>DIV>FORM>LABEL>SPAN.highest-bid").text(msg.bid + " €");
-
-
+                    $("[data-product-id="+ msg.productID + "] .product-highest,[data-product-id="+ msg.productID + "] .highest-bidder").text(msg.highestBidName);
+                    $("[data-product-id="+ msg.productID + "] .product-price,[data-product-id="+ msg.productID + "] .highest-bid").text(msg.bid + " €");
                     break;
                 case "OUTBIDDEN":
                     $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.newBalance + " €");
