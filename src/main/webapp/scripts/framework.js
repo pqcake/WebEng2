@@ -143,6 +143,10 @@ function start(websocketServerLocation){
                     $(".balance").html(formatCurrency(msg.newBalance));
                     $("a",product_outer).toggleClass("highlight", false);
                     break;
+                case "HIGHLIGHT":
+                    console.log("highlight");
+                    $("a",product_outer).toggleClass("highlight");
+                    break;
 
             }
         }

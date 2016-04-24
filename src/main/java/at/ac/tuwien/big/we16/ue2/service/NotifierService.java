@@ -113,7 +113,6 @@ public class NotifierService {
                         LOGGER.debug("is open:" + entry.getKey().isOpen());
                         send(entry.getKey(),msg);
                         //entry.getKey().getBasicRemote().sendText(msg.toJson());
-                        return;
 
                     } catch (Exception e) {
                         LOGGER.debug("error: " + e);

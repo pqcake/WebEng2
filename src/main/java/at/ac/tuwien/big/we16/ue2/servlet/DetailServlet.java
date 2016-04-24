@@ -72,6 +72,8 @@ public class DetailServlet extends HttpServlet {
                                 biddingService.bid(u, p, newBid);
                                 //sendResponse("Ok",response);
                                 NewBidMessage msg = new NewBidMessage(u.getUsername(), newBid, productID);
+                                HighlightMessage hMsg = new HighlightMessage(productID);
+                                ServiceFactory.getNotifierService().notifyClient(u,hMsg);
                                 ServiceFactory.getNotifierService().notifyClients(msg);
 
                                 answer.put("status","ok");

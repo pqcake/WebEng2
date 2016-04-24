@@ -11,7 +11,8 @@ public abstract class Message {
     enum MsgType {
         AUCTION_EXPIRED,
         NEW_BID,
-        OUTBIDDEN
+        OUTBIDDEN,
+        HIGHLIGHT
     };
 
     public String toJson()
