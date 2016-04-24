@@ -1,6 +1,7 @@
 package at.ac.tuwien.big.we16.ue2.servlet;
 
 import at.ac.tuwien.big.we16.ue2.model.Product;
+
 import at.ac.tuwien.big.we16.ue2.model.User;
 import at.ac.tuwien.big.we16.ue2.model.UserPool;
 import at.ac.tuwien.big.we16.ue2.productdata.JSONDataLoader;
@@ -10,6 +11,7 @@ import at.ac.tuwien.big.we16.ue2.service.ServiceFactory;
 import at.ac.tuwien.big.we16.ue2.util.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,19 +21,30 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 
 /**
  * Created by Philipp on 21.04.2016.
  */
 public class DetailServlet extends HttpServlet {
+
     private Logger LOGGER = LogManager.getLogger(DetailServlet.class);
+
     private IBiddingService biddingService;
+	
+	private Map<Long,Product> productMap;
+
+    public void init() throws ServletException {
+        productMap= (Map<Long, Product>) getServletContext().getAttribute("productMap");
+    }
+	
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         biddingService = (BiddingService)getServletContext().getAttribute("biddingService");
         Map<String,String> answer = new HashMap<>();
@@ -110,11 +123,13 @@ public class DetailServlet extends HttpServlet {
         {
            throw new IOException(e);
         }
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        JSONDataLoader.getProducts().keySet().forEach(item -> LOGGER.debug("contains {} {}", item, JSONDataLoader.getProducts().get(item)));
-        Product p=JSONDataLoader.getProducts().get(Long.parseLong(request.getParameter("id")));
+        //JSONDataLoader.getProducts().keySet().forEach(item -> LOGGER.debug("contains {} {}", item, JSONDataLoader.getProducts().get(item)));
+        //Product p=JSONDataLoader.getProducts().get(Long.parseLong(request.getParameter("id")));
+        Product p=productMap.get(Long.parseLong(request.getParameter("id")));
         LOGGER.debug("setting product {} {}",p.getId(),p.getName());
         request.setAttribute("product",p);
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/views/details.jsp");

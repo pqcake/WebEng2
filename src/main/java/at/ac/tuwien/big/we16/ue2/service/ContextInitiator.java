@@ -38,6 +38,7 @@ public class ContextInitiator
         Map<Long,Product> products= JSONDataLoader.getProducts();
         List<Product> productList=new ArrayList<>(products.values());
         context.setAttribute("products", productList);
+        context.setAttribute("productMap", products);
         context.setAttribute("biddingService",biddingService);
         context.setAttribute("userPool",userPool);
         biddingAI=new BiddingAI(biddingService,productList);

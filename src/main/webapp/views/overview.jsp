@@ -10,19 +10,37 @@
 </head>
 <body data-decimal-separator="," data-grouping-separator=".">
     <%@ include file="header.jsp" %>
-
+    <input type="hidden" id="refreshed" value="no"/>
+    <script>
+        onload=function(){
+            var e=document.getElementById("refreshed");
+            if(e.value=="no")e.value="yes";
+            else{e.value="no";location.reload();}
+        }
+    </script>
     <div class="main-container">
     <%@include file="userinfo.jsp"%>
     <main aria-labelledby="productsheadline">
         <h2 class="main-headline" onclick="testSet()" id="productsheadline">Produkte</h2>
         <div class="products">
             <c:forEach var="item" items="${products}">
+                <c:choose>
+                    <c:when test="${item.highest_bidder.username==user.username}">
+                        <c:set var="productclass" value="product highlight"/>
+                    </c:when>
+                    <c:when test="${item.isExpired()}">
+                        <c:set var="productclass" value="product expired"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:set var="productclass" value="product"/>
+                    </c:otherwise>
+                </c:choose>
                 <div class="product-outer" data-product-id="${item.id}">
                     <a href="
-                        <c:url value="DetailServlet">
+                        <c:url value="/DetailServlet">
                             <c:param name="id" value="${item.id}"/>
                         </c:url>"
-                       class="product<c:if test="${item.isExpired()}"> expired</c:if>"
+                       class="${productclass}"
                        title="Mehr Informationen zu ${item.name}"
                     >
                         <img class="product-image" src="../images/${item.img}" alt=""/>

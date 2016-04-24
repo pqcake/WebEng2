@@ -33,7 +33,7 @@ public class BiddingAI implements Runnable {
         executor.scheduleAtFixedRate(this,0,10, TimeUnit.SECONDS);
         rnd=new Random(System.currentTimeMillis());
         ai=new AIUser();
-        ai.setUsername("arnold@braunschweiger.at");
+        ai.setUsername("arnie@braunschweiger");
         ai.setPassword("Mistviech");
     }
     @Override
