@@ -149,6 +149,7 @@ function start(websocketServerLocation){
                     break;
                 case "OUTBIDDEN":
                     $("ASIDE>DIV>DL>DD>SPAN.balance").text(msg.newBalance + " €");
+                    $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight", false);
                     break;
 
             }
@@ -193,6 +194,8 @@ $(document).on("submit", ".bid-form", function(event) {
                    " .user-info-container > .user-data.properties > .user-name").text();
                $("MAIN>DIV>FORM>LABEL>SPAN.highest-bidder").text(username);
                $("MAIN>DIV>FORM>LABEL>SPAN.highest-bid").text(bid + " €");
+               //set highlighting
+               $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
                break;
            case "error":
                alert(msg.text);

@@ -10,10 +10,11 @@ import java.math.BigDecimal;
 public class OutbiddenMessage extends Message {
     private final MsgType type = MsgType.OUTBIDDEN;
     private BigDecimal newBalance;
+    private long productID;
 
-    public OutbiddenMessage(BigDecimal newBalance)
-    {
-      this.newBalance = newBalance;
+    public OutbiddenMessage(BigDecimal newBalance, long productID) {
+        this.newBalance = newBalance;
+        this.productID = productID;
     }
 
     public MsgType getType() {
@@ -26,6 +27,14 @@ public class OutbiddenMessage extends Message {
 
     public void setNewBalance(BigDecimal newBalance) {
         this.newBalance = newBalance;
+    }
+
+    public long getProductID() {
+        return productID;
+    }
+
+    public void setProductID(long productID) {
+        this.productID = productID;
     }
 
     public String toJson()

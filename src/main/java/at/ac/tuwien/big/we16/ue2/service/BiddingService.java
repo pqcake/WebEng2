@@ -59,7 +59,7 @@ public class BiddingService  implements IBiddingService{
             user.addFunds(amount);
             //inform user (call notifierservice)
             NotifierService notifier = ServiceFactory.getNotifierService();
-            OutbiddenMessage msg = new OutbiddenMessage(user.getBalance());
+            OutbiddenMessage msg = new OutbiddenMessage(user.getBalance(),product.getId());
             notifier.notifyClient(user,msg);
         }
         else
