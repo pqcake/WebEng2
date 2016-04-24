@@ -164,13 +164,35 @@ function start(websocketServerLocation){
         //try to reconnect in 5 seconds
         setTimeout(function(){start(serverLocation)}, 5000);
     };
-
-
 }
-start(serverLocation);
 
+$(document).ready(function () {
 
-
+//local storage
+if (supportsLocalStorage()) {
+    // display
+    var journey = JSON.parse(localStorage.getItem('journey')) || {};
+    if (!jQuery.isEmptyObject(journey)) {
+        $(".recently-viewed-headline,.recently-viewed-list").css("display", "block");
+        jQuery.each(journey, function (link, name) {
+            var linkStr = '<li class="recently-viewed-link"><a href="' + link + '">' + name + '</a></li>';
+            $(".recently-viewed-list").append(linkStr);
+        });
+    }
+    // save
+    if ($("#productheadline").length) {
+        var headline = $("#productheadline");
+        var name = headline.text();
+        var link = location.pathname + location.search;
+        var pair = {};
+        journey[link] = name;
+        // journey.push(pair);
+        localStorage.setItem('journey', JSON.stringify(journey));
+    }
+}
+    //start websocket
+    start(serverLocation);
+});
 
 $(document).on("submit", ".bid-form", function(event) {
 

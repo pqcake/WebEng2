@@ -71,7 +71,9 @@ public class User {
         }
         synchronized (auctions_running)
         {
-            auctions_running.add(p);
+            if(!auctions_running.contains(p)) {
+                auctions_running.add(p);
+            }
         }
     }
 
