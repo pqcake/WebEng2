@@ -6,22 +6,30 @@ import org.apache.logging.log4j.Logger;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.ParsePosition;
 import java.util.Locale;
 
 /**
  * Created by Philipp on 20.04.2016.
  */
-public class CurrencyFormatter {
+public final class CurrencyFormatter {
 
     private static final Logger LOGGER= LogManager.getLogger(CurrencyFormatter.class);
+    //// df = new DecimalFormat("#,##0.00 €");
+    private static DecimalFormat nf = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.GERMANY);
+   static {
+        nf.setParseBigDecimal(true);
+    }
 
     public static String format(BigDecimal b){
         if(b!=null) {
-            //DecimalFormat df = new DecimalFormat("#,##0.00 €");
-            NumberFormat nf = NumberFormat.getCurrencyInstance(Locale.GERMANY);
             return nf.format(b);
         }else{
             return null;
         }
+    }
+
+    public static BigDecimal parse(String str){
+        return (BigDecimal) nf.parse(str,new ParsePosition(0));
     }
 }

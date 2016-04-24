@@ -1,22 +1,6 @@
 /*
     Helper functions for the first exercise of the Web Engineering course
 */
-/*$(document).ready(function () {
-    $(".product-price").each(function () {
-        console.log($(this).text());
-        $(this).html(formatCurrency(parseFloat($(this).text())));
-        //format bigdecimal output, now replaced with getFormattedCurrentBid()
-    })
-})*/
-
-/*$(document).ready(function () {
-    //overview
-    var productouter=$(".product-outer[data-product-id=4]");
-    $(".product-price",productouter).text("123123"); //Preis
-    $(".product-highest",productouter).text("Testname"); //Name
-    $("a",productouter).toggleClass("expired"); //expired class toggle
-})*/
-
 
 /* 
     checks if native form validation is available.
@@ -116,7 +100,7 @@ $(".js-time-left").each(function() {
 
 function formatCurrency(x) {
     // regex from http://stackoverflow.com/a/2901298
-    return x.toFixed(2).replace(".", $("body").data('decimal-separator')).replace(/\B(?=(\d{3})+(?!\d))/g, $("body").data('grouping-separator')) + "&nbsp;€";
+    return parseFloat(x).toFixed(2).replace(".", $("body").data('decimal-separator')).replace(/\B(?=(\d{3})+(?!\d))/g, $("body").data('grouping-separator')) + "&nbsp;€";
 }
 
 // Depending on the setup of your server, servlet, and socket, you may have to
@@ -141,21 +125,22 @@ function start(websocketServerLocation){
                     console.log("lostAuctions: " + msg.lostAuctions);
                     //set attribute
                     $("a",product_outer).toggleClass("expired");
-                    $(".balance").text(msg.currentBalance + " €");
+                    $(".balance").html(formatCurrency(msg.currentBalance));
                     $(".running-auctions-count").text(msg.runningBids);
                     $(".won-auctions-count").text(msg.wonAuctions);
                     $(".lost-auctions-count").text(msg.lostAuctions);
                     break;
                 case "NEW_BID":
+                    console.log("new_bid");
                     //overview.jsp: product-highest     details.jsp: highest-bidder
                     $(".product-highest, .highest-bidder", product_outer).text(msg.highestBidName);
                     //overview.jsp: product-price     details.jsp: highest-bid
-                    $(".product-price, .highest-bid",product_outer).text(msg.bid + " €");
+                    $(".product-price, .highest-bid",product_outer).html(formatCurrency(msg.bid));
                     break;
                 case "OUTBIDDEN":
                     console.log("outbidden");
                     console.log($(".balance").text());
-                    $(".balance").text(msg.newBalance+ " €");
+                    $(".balance").html(formatCurrency(msg.newBalance));
                     $("a",product_outer).toggleClass("highlight", false);
                     break;
 
@@ -231,13 +216,13 @@ $(document).on("submit", ".bid-form", function(event) {
            case "ok":
                biderror.css("display","none");
                $(".running-auctions-count").text(msg.runningAuctions);
-               $(".balance").text(msg.balance + " €");
+               $(".balance").html(formatCurrency(msg.balance));
                //also set highest bidder and new bid in details page
                var username = $(".user-name").text();
                $(".highest-bidder").text(username);
-               $(".highest-bid").text(bid + " €");
+               $(".highest-bid").html(formatCurrency(bid));
                //set highlighting, edit: not necessary because we are on details.jsp and highlight only is on overview
-               //$("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
+               $("[data-product-id="+ msg.productID + "] > a").toggleClass("highlight");
                break;
            case "error":
                biderror.css("display","inline");
